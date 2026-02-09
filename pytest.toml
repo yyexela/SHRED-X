@@ -1,0 +1,9 @@
+minversion = "9.0"
+addopts = ["-ra", "-l", "--maxfail=1"]
+pythonpath = ["."]
+testpaths = [
+    "test",
+]
+filterwarnings = [
+    "error",
+]

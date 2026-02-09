@@ -1,0 +1,37 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+    "hatchling",
+]
+
+[project]
+name = "SHREDX"
+version = "0.1"
+dependencies = [
+    "torch>=2.10.0",
+    "torchvision>=0.25.0",
+    "einops>=0.8.2",
+    "jaxtyping>=0.3.7"
+]
+requires-python = ">=3.13.0"
+description = "SHRED-X"
+readme = "README.md"
+
+[project.optional-dependencies]
+dev  = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "spin>=0.17",
+    "sphinx>=9.1.0",
+    "numpydoc>=1.10.0",
+    "pyrefly>=0.52.0",
+    "ruff>=0.15.0",
+    "pre-commit>=4.5.1",
+    "hatch>=1.16.3",
+    "hatchling>=1.28.0",
+    "pydata-sphinx-theme>=0.16.1",
+    "nox>=2026.2.9"
+]
+
+[project.urls]
+Homepage = "https://github.com/yyexela/SHRED-X"

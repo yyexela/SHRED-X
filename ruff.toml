@@ -1,0 +1,13 @@
+line-length=120
+
+[format]
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = 20
+
+[lint]
+preview = true
+
+ignore = [
+   "F722" # to avoid breaking syntax from jaxtyping
+]
