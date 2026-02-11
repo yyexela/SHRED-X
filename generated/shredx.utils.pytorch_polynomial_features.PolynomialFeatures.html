@@ -382,6 +382,19 @@
 <p>PyTorch implementation of polynomial features that supports backpropagation.</p>
 <p>Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with
 gradient computation support for use in neural network training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>degree</strong><span class="classifier">int</span></dt><dd><p>Maximum degree of polynomial features (must be &gt;= 1).</p>
+</dd>
+<dt><strong>interaction_only</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, only include interaction features (products of distinct
+features), not powers, by default <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt><strong>include_bias</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, include a bias column of ones, by default <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
@@ -400,6 +413,51 @@ gradient computation support for use in neural network training.</p>
 </tbody>
 </table>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If degree is less than 1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>fit</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> : torch.Tensor
+Input tensor of shape <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features_in)</span></code>. Computes and stores
+the number of input features and output features based on the polynomial
+degree and settings.</p></li>
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">self</span></code> for method chaining.</p></li>
+</ul>
+<p><strong>transform</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> : torch.Tensor
+Input tensor of shape <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features_in)</span></code>.</p></li>
+<li><p>Returns transformed tensor of shape <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_output_features_)</span></code>.</p></li>
+</ul>
+<p><strong>fit_transform</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> : torch.Tensor
+Input tensor of shape <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features_in)</span></code>.</p></li>
+<li><p>Convenience method that calls <code class="docutils literal notranslate"><span class="pre">fit()</span></code> followed by <code class="docutils literal notranslate"><span class="pre">transform()</span></code>.</p></li>
+<li><p>Returns transformed tensor of shape <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_output_features_)</span></code>.</p></li>
+</ul>
+<p><strong>get_feature_names_out</strong></p>
+<ul class="simple">
+<li><p>Must be called after <code class="docutils literal notranslate"><span class="pre">fit()</span></code> to access the number of input features.</p></li>
+<li><p>Returns np.ndarray of feature name strings (dtype=object), e.g.
+<code class="docutils literal notranslate"><span class="pre">[&quot;1&quot;,</span> <span class="pre">&quot;x0&quot;,</span> <span class="pre">&quot;x1&quot;,</span> <span class="pre">&quot;x0^2&quot;,</span> <span class="pre">&quot;x0</span> <span class="pre">x1&quot;,</span> <span class="pre">&quot;x1^2&quot;]</span></code>.</p></li>
+</ul>
+<p><strong>_combo_to_dict</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">combo</span></code> : tuple
+Tuple of feature indices representing a polynomial term.</p></li>
+<li><p>Helper for <code class="docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code>. Counts occurrences of each feature
+index to determine its power. Example: <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">3)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">{0:</span> <span class="pre">2,</span> <span class="pre">1:</span> <span class="pre">1,</span> <span class="pre">3:</span> <span class="pre">1}</span></code>
+(x0^2 * x1 * x3).</p></li>
+<li><p>Returns dict mapping feature indices to their powers.</p></li>
+</ul>
 </dd></dl>
 
 </section>
