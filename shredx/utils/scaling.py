@@ -1,3 +1,5 @@
+"""This file contains scaling utilities."""
+
 import torch
 from jaxtyping import Float
 

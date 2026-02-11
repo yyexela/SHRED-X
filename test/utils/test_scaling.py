@@ -1,6 +1,4 @@
-"""
-Verify the scaling functions are working correctly.
-"""
+"""Verify the scaling functions are working correctly."""
 
 import torch
 import pytest

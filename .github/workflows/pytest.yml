@@ -9,6 +9,11 @@ on:
       - '!main'
     paths: # Only run tests for changes to the SHRED-X package
       - 'shredx/**'
+  pull_request:
+    branches:
+      - '!main'
+    paths: # Only run tests for changes to the SHRED-X package
+      - 'shredx/**'
   workflow_dispatch:
 
 permissions:
