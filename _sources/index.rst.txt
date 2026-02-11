@@ -1,16 +1,12 @@
-.. SHRED-X Documentation master file, created by
-   sphinx-quickstart on Tue Feb 10 09:32:39 2026.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 SHRED-X Documentation
 =====================
 
-SHRED-X Documentation. TODO: Build out documentation.
+SHRED-X is a PyTorch implementation of the SHRED model. Currently, it is in development and not yet ready for use, but you can view the implemented API below.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
+   user_guide
+   contributing
    api
-

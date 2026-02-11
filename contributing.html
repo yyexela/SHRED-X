@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SHRED-X Documentation &#8212; SHRED-X Documentation</title>
+    <title>Contributing to SHRED-X &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,10 +41,11 @@
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contributing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Guide" href="user_guide.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="User Guide" href="user_guide.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -102,7 +103,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -130,8 +131,8 @@
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="contributing.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
     Contributing to SHRED-X
   </a>
 </li>
@@ -200,10 +201,8 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -225,8 +224,8 @@
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="contributing.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
     Contributing to SHRED-X
   </a>
 </li>
@@ -260,6 +259,15 @@
     
   </div>
   
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
       <div class="sidebar-primary-item">
@@ -280,7 +288,31 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none"></div>
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Contributing to SHRED-X</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
               
               
               
@@ -288,17 +320,45 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="shred-x-documentation">
-<h1>SHRED-X Documentation<a class="headerlink" href="#shred-x-documentation" title="Link to this heading">#</a></h1>
-<p>SHRED-X is a PyTorch implementation of the SHRED model. Currently, it is in development and not yet ready for use, but you can view the implemented API below.</p>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to SHRED-X</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-</ul>
+  <section id="contributing-to-shred-x">
+<h1>Contributing to SHRED-X<a class="headerlink" href="#contributing-to-shred-x" title="Link to this heading">#</a></h1>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Link to this heading">#</a></h2>
+<p>The environment can be created by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.13.7</span>
+<span class="n">pyenv</span> <span class="n">local</span> <span class="mf">3.13.7</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">~/.</span><span class="n">virtualenvs</span><span class="o">/</span><span class="n">shredx</span>
+<span class="n">source</span> <span class="o">~/.</span><span class="n">virtualenvs</span><span class="o">/</span><span class="n">shredx</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span>
+</pre></div>
 </div>
+</section>
+<section id="nox-taskrunner">
+<h2>Nox Taskrunner<a class="headerlink" href="#nox-taskrunner" title="Link to this heading">#</a></h2>
+<p>We use <a class="reference external" href="https://nox.thea.codes/en/stable/index.html">Nox</a> to automate all tasks in our package. Specifically, running <code class="docutils literal notranslate"><span class="pre">nox</span></code> runs all tests, lints and formats the code, performs typechecking, and builds the documentation. It is also used for the continuous integration pipeline to do all the aforementioned in Github Actions.</p>
+<p>To run a specific Nox task, run <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">--list</span></code> to see available tasks and then <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">--no-venv</span> <span class="pre">--no-install</span> <span class="pre">-s</span> <span class="pre">&lt;task&gt;</span></code> to run the task.</p>
+</section>
+<section id="pre-commit">
+<h2>Pre-commit<a class="headerlink" href="#pre-commit" title="Link to this heading">#</a></h2>
+<p>We use <a class="reference external" href="https://pre-commit.com/">pre-commit</a> to verify all code is linted, formatted, and type-checked before committed. This ensures a smoother code development process. Use <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code> to install the appropriate hooks and verify it runs with <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--all-files</span></code>.</p>
+</section>
+<section id="linting-and-formatting">
+<h2>Linting and Formatting<a class="headerlink" href="#linting-and-formatting" title="Link to this heading">#</a></h2>
+<p>Linting ensures that the code logic makes sense and nothing is being called in a way that would surely break. For this, we use <a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a>. We also use Ruff for code formatting, ensuring a standard format across all code.</p>
+</section>
+<section id="type-checking">
+<h2>Type checking<a class="headerlink" href="#type-checking" title="Link to this heading">#</a></h2>
+<p>In this repository, we use <a class="reference external" href="https://pyrefly.org/">Pyrefly</a> to check all functions are called with their specified types. We also use <a class="reference external" href="https://docs.kidger.site/jaxtyping/api/array/">jaxtyping</a> to allow for clear function typing for PyTorch array dimensions.</p>
+</section>
+<section id="building-serving-documentation">
+<h2>Building/Serving Documentation<a class="headerlink" href="#building-serving-documentation" title="Link to this heading">#</a></h2>
+<p>We use <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a> to build our documentation. Make sure that the <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> package is installed in your python environment. The source files are located in <code class="docutils literal notranslate"><span class="pre">doc/</span></code>. To build the documentation, run <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">--no-venv</span> <span class="pre">--no-install</span> <span class="pre">-s</span> <span class="pre">build_docs</span></code>.</p>
+<p>To preview documentation files, open <code class="docutils literal notranslate"><span class="pre">docs/build/html/index.html</span></code> locally in your browser. If you’re developing on a server, first run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">8000</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code> and then on your local computer run <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-L</span> <span class="pre">8080:localhost:8000</span> <span class="pre">&lt;server_address&gt;</span></code>. This will turn the server into an HTTP server and opening <code class="docutils literal notranslate"><span class="pre">localhost:8080</span></code> in a browser will show the generated documentation.</p>
+</section>
+<section id="adding-to-documentation">
+<h2>Adding to Documentation<a class="headerlink" href="#adding-to-documentation" title="Link to this heading">#</a></h2>
+<p>We use <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a> as our documentation generator. To add to the documentation, add to the <code class="docutils literal notranslate"><span class="pre">source/</span></code> directory. All files in this directory will be included in the documentation. Please read the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/quickstart.html">Sphinx documentation</a> for more information on how to write documentation.</p>
+</section>
 </section>
 
 
@@ -311,12 +371,21 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="user_guide.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">User Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">User Guide</p>
+        <p class="prev-next-title">API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -332,10 +401,28 @@
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nox-taskrunner">Nox Taskrunner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-commit">Pre-commit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linting-and-formatting">Linting and Formatting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-checking">Type checking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-serving-documentation">Building/Serving Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-to-documentation">Adding to Documentation</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
+      <li><a href="_sources/contributing.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
