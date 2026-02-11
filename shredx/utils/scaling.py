@@ -1,12 +1,14 @@
-import torch
+"""This file contains scaling utilities."""
+
+from torch import Tensor, numel
 from jaxtyping import Float
 
 
 def min_max_scale(
-    tensor: Float[torch.Tensor, "... dim"],
+    tensor: Float[Tensor, "... dim"],
     feature_range: tuple[float, float] = (0, 1),
     scaler: tuple[float, float] | None = None,
-) -> tuple[Float[torch.Tensor, "... dim"], tuple[float, float]]:
+) -> tuple[Float[Tensor, "... dim"], tuple[float, float]]:
     """
     Scale a tensor to a given feature range using min-max normalization.
 
@@ -17,7 +19,7 @@ def min_max_scale(
 
     Parameters
     ----------
-    tensor : Float[torch.Tensor, "... dim"]
+    tensor : Float[Tensor, "... dim"]
         Input tensor to be scaled.
     feature_range : tuple[float, float], optional
         Desired range of transformed data, by default ``(0, 1)``.
@@ -28,7 +30,7 @@ def min_max_scale(
 
     Returns
     -------
-    scaled : Float[torch.Tensor, "... dim"]
+    scaled : Float[Tensor, "... dim"]
         Tensor scaled to the specified ``feature_range``.
     min_max : tuple[float, float]
         Tuple ``(min, max)`` values used for scaling, either computed from
@@ -46,7 +48,7 @@ def min_max_scale(
         raise ValueError("Feature range must be a tuple of two elements")
 
     # Ensure the input has at least two elements
-    if torch.numel(tensor) < 2:
+    if numel(tensor) < 2:
         raise ValueError("Input tensor must have at least two elements")
 
     if scaler is None:
@@ -72,10 +74,10 @@ def min_max_scale(
 
 
 def inverse_min_max_scale(
-    scaled_tensor: Float[torch.Tensor, "... dim"],
+    scaled_tensor: Float[Tensor, "... dim"],
     original_min_max: tuple[float, float],
     feature_range: tuple[float, float] = (0, 1),
-) -> Float[torch.Tensor, "... dim"]:
+) -> Float[Tensor, "... dim"]:
     """
     Invert min-max scaling and recover the original data scale.
 
@@ -85,7 +87,7 @@ def inverse_min_max_scale(
 
     Parameters
     ----------
-    scaled_tensor : Float[torch.Tensor, "... dim"]
+    scaled_tensor : Float[Tensor, "... dim"]
         Tensor that was previously scaled with min-max normalization.
     original_min_max : tuple[float, float]
         Tuple ``(min, max)`` values from the original data before scaling.
@@ -95,7 +97,7 @@ def inverse_min_max_scale(
 
     Returns
     -------
-    Float[torch.Tensor, "... dim"]
+    Float[Tensor, "... dim"]
         Tensor mapped back to the original scale.
 
     Raises
