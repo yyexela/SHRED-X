@@ -6,9 +6,10 @@ name: Linter
 on:
   push:
     branches:
-      - '!main'
+      - "**"
     paths: # Only run linting and formatting for changes to the SHRED-X package
       - 'shredx/**'
+      - 'test/**'
   workflow_dispatch:
 
 permissions:
