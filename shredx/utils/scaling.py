@@ -30,7 +30,7 @@ def min_max_scale(
 
     Returns
     -------
-    scaled : Float[Tensor, "... dim"]
+    scaled : Float[torch.Tensor, "... dim"]
         Tensor scaled to the specified ``feature_range``.
     min_max : tuple[float, float]
         Tuple ``(min, max)`` values used for scaling, either computed from
