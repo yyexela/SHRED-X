@@ -30,7 +30,8 @@ dev  = [
     "hatch>=1.16.3",
     "hatchling>=1.28.0",
     "pydata-sphinx-theme>=0.16.1",
-    "nox>=2026.2.9"
+    "nox>=2026.2.9",
+    "scikit-learn>=1.8.0"
 ]
 
 [project.urls]

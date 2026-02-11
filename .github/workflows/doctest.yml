@@ -1,23 +1,23 @@
-# This workflow will install Python dependencies and run the unit tests.
+# This workflow will install Python dependencies and build the documentation. 
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Run Tests
+name: Test Generating Documentiation
 
 on:
   push:
     branches:
       - "**"
       - "!main"
-    paths: # Only run tests for changes to the SHRED-X package
+    paths: # Only generate documentation for changes to the SHRED-X package or documentation itself
       - 'shredx/**'
-      - 'test/**'
+      - 'docs/**'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  test:
+  test_build_docs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -33,7 +33,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install nox
-      - name: Run tests
+      - name: Build documentation
         run: |
-          nox -s test
-
+          nox -s build_docs
