@@ -16,4 +16,5 @@ shredx.utils
    :toctree:
    :recursive:
 
+   pytorch_polynomial_features
    scaling

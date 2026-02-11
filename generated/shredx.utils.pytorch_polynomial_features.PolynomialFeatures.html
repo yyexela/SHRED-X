@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx.utils &#8212; SHRED-X Documentation</title>
+    <title>shredx.utils.pytorch_polynomial_features.PolynomialFeatures &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.utils';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.utils.pytorch_polynomial_features.PolynomialFeatures';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.utils.pytorch_polynomial_features" href="shredx.utils.pytorch_polynomial_features.html" />
-    <link rel="prev" title="shredx.modules.rnn.LSTMEncoder" href="shredx.modules.rnn.LSTMEncoder.html" />
+    <link rel="next" title="shredx.utils.scaling" href="shredx.utils.scaling.html" />
+    <link rel="prev" title="shredx.utils.pytorch_polynomial_features" href="shredx.utils.pytorch_polynomial_features.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -290,9 +290,9 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">shredx.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.html">shredx.utils.pytorch_polynomial_features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.PolynomialFeatures.html">shredx.utils.pytorch_polynomial_features.PolynomialFeatures</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.html">shredx.utils.pytorch_polynomial_features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.utils.pytorch_polynomial_features.PolynomialFeatures</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.scaling.html">shredx.utils.scaling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -350,7 +350,13 @@
     
     <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.utils</span></li>
+    
+    <li class="breadcrumb-item"><a href="shredx.utils.html" class="nav-link">shredx.utils</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.utils.pytorch_polynomial_features.html" class="nav-link">shredx.utils.pytorch_polynomial_features</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.utils.pytorch_polynomial_features.PolynomialFeatures</span></li>
   </ul>
 </nav>
 </div>
@@ -367,20 +373,35 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-shredx.utils">
-<span id="shredx-utils"></span><h1>shredx.utils<a class="headerlink" href="#module-shredx.utils" title="Link to this heading">#</a></h1>
-<p class="rubric">Modules</p>
+  <section id="shredx-utils-pytorch-polynomial-features-polynomialfeatures">
+<h1>shredx.utils.pytorch_polynomial_features.PolynomialFeatures<a class="headerlink" href="#shredx-utils-pytorch-polynomial-features-polynomialfeatures" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="shredx.utils.pytorch_polynomial_features.PolynomialFeatures">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">shredx.utils.pytorch_polynomial_features.</span></span><span class="sig-name descname"><span class="pre">PolynomialFeatures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interaction_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_bias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shredx.utils.pytorch_polynomial_features.PolynomialFeatures" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>PyTorch implementation of polynomial features that supports backpropagation.</p>
+<p>Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with
+gradient computation support for use in neural network training.</p>
+<p class="rubric">Methods</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.html#module-shredx.utils.pytorch_polynomial_features" title="shredx.utils.pytorch_polynomial_features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pytorch_polynomial_features</span></code></a></p></td>
-<td><p>PyTorch implementation of polynomial feature generation.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(X)</p></td>
+<td><p>Fit the polynomial features transformer to the data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="shredx.utils.scaling.html#module-shredx.utils.scaling" title="shredx.utils.scaling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scaling</span></code></a></p></td>
-<td><p>This file contains scaling utilities.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(X)</p></td>
+<td><p>Fit to data, then transform it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code>()</p></td>
+<td><p>Get the feature names of the polynomial features.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(x)</p></td>
+<td><p>Transform data to polynomial features.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</dd></dl>
+
 </section>
 
 
@@ -394,20 +415,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="shredx.modules.rnn.LSTMEncoder.html"
+       href="shredx.utils.pytorch_polynomial_features.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">shredx.modules.rnn.LSTMEncoder</p>
+        <p class="prev-next-title">shredx.utils.pytorch_polynomial_features</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.utils.pytorch_polynomial_features.html"
+       href="shredx.utils.scaling.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.utils.pytorch_polynomial_features</p>
+        <p class="prev-next-title">shredx.utils.scaling</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -423,10 +444,22 @@
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.utils.pytorch_polynomial_features.PolynomialFeatures"><code class="docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.utils.rst.txt"
+      <li><a href="../_sources/generated/shredx.utils.pytorch_polynomial_features.PolynomialFeatures.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

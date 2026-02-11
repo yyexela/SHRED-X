@@ -1,0 +1,18 @@
+shredx.utils.pytorch\_polynomial\_features
+==========================================
+
+.. automodule:: shredx.utils.pytorch_polynomial_features
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      PolynomialFeatures
+

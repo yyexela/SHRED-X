@@ -1,0 +1,10 @@
+shredx.utils.pytorch\_polynomial\_features.PolynomialFeatures
+=============================================================
+
+.. currentmodule:: shredx.utils.pytorch_polynomial_features
+
+.. autoclass:: PolynomialFeatures
+
+    
+
+    
