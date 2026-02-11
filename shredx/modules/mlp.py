@@ -68,20 +68,14 @@ class MLPEncoder(nn.Module):
 
         Returns
         -------
-        outputs : dict[str, torch.Tensor]
-            Dictionary containing:
-
-            - ``"sequence_output"``: all hidden states of shape
-              ``(batch_size, 1, sequence_length, hidden_size)``.
-            - ``"final_hidden_state"``: same as ``"sequence_output"``.
-            - ``"output"``: last state in the sequence of shape
-              ``(batch_size, 1, 1, hidden_size)``.
+        final_output : Tensor
+            Final output tensor of shape
+            ``(batch_size, 1, 1, hidden_size)``.
+            Note: second dimension and third dimension are 1, corresponding to
+                  one forecast step and the final hidden state respectively.
         """
         out = self.model(x)
         out = self.dropout(out)
         out = einops.rearrange(out, "b s d -> b 1 s d")
-        return {
-            "sequence_output": out,
-            "final_hidden_state": out,
-            "output": out[:, :, -1:, :],
-        }
+
+        return out[:, :, -1:, :]
