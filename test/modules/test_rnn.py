@@ -1,11 +1,11 @@
 """Verify the RNN modules are working correctly."""
 
 import torch
-from shredx.modules.rnn import GRU, LSTM
+from shredx.modules.rnn import GRUEncoder, LSTMEncoder
 
 
-def test_gru_forward():
-    # Test that the GRU forward pass works correctly with varying input sizes and sequence lengths
+def test_gru_encoder_forward():
+    # Test that the GRU encoder forward pass works correctly with varying input sizes and sequence lengths
 
     batch_size = 2
     sequence_length = 10
@@ -18,14 +18,14 @@ def test_gru_forward():
 
     for hidden_size in hidden_sizes:
         for num_layer in num_layers:
-            gru = GRU(input_size=input_sizes, hidden_size=hidden_size, num_layers=num_layer, dropout=dropout)
+            gru = GRUEncoder(input_size=input_sizes, hidden_size=hidden_size, num_layers=num_layer, dropout=dropout)
             output = gru(input_tensor)
             assert output is not None
-            assert output.shape == (batch_size, 1, 1, hidden_size)
+            assert output[0].shape == (batch_size, 1, 1, hidden_size)
 
 
-def test_lstm_forward():
-    # Test that the LSTM forward pass works correctly with varying input sizes and sequence lengths
+def test_lstm_encoder_forward():
+    # Test that the LSTM encoder forward pass works correctly with varying input sizes and sequence lengths
 
     batch_size = 2
     sequence_length = 10
@@ -38,7 +38,7 @@ def test_lstm_forward():
 
     for hidden_size in hidden_sizes:
         for num_layer in num_layers:
-            lstm = LSTM(input_size=input_sizes, hidden_size=hidden_size, num_layers=num_layer, dropout=dropout)
+            lstm = LSTMEncoder(input_size=input_sizes, hidden_size=hidden_size, num_layers=num_layer, dropout=dropout)
             output = lstm(input_tensor)
             assert output is not None
-            assert output.shape == (batch_size, 1, 1, hidden_size)
+            assert output[0].shape == (batch_size, 1, 1, hidden_size)

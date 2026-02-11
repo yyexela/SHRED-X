@@ -5,16 +5,45 @@ encoder–decoder architecture.
 """
 
 import einops
+import torch
 import torch.nn as nn
-from torch import Tensor
 from jaxtyping import Float
+from typing import Tuple
 
 
-class GRU(nn.Module):
+class GRUEncoder(nn.Module):
     """GRU encoder for sequence-to-sequence modeling.
 
     Wraps PyTorch's ``GRU`` with dropout and output reshaping for
     compatibility with encoder–decoder architectures.
+
+    Parameters
+    ----------
+    input_size : int
+        Input feature dimension.
+    hidden_size : int
+        Hidden state dimension.
+    num_layers : int
+        Number of stacked GRU layers.
+    dropout : float
+        Dropout probability applied to the outputs.
+    device : str, optional
+        Device on which to place the module, by default ``"cpu"``.
+    **kwargs
+        Additional keyword arguments passed for compatibility but ignored.
+
+    Notes
+    -----
+    **Inputs**
+
+    - ``x`` : Tensor
+      Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+
+    **Outputs**
+
+    - ``output`` : Tuple
+      Tuple containing the final
+      output tensor of shape ``(batch_size, 1, 1, hidden_size)`` and None for no auxiliary losses.
     """
 
     def __init__(
@@ -26,23 +55,6 @@ class GRU(nn.Module):
         device: str = "cpu",
         **kwargs,
     ):
-        """Initialize the GRU encoder.
-
-        Parameters
-        ----------
-        input_size : int
-            Input feature dimension.
-        hidden_size : int
-            Hidden state dimension.
-        num_layers : int
-            Number of stacked GRU layers.
-        dropout : float
-            Dropout probability applied to the outputs.
-        device : str, optional
-            Device on which to place the module, by default ``"cpu"``.
-        **kwargs
-            Additional keyword arguments passed for compatibility but ignored.
-        """
         super().__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -58,23 +70,10 @@ class GRU(nn.Module):
             batch_first=True,
         )
 
-    def forward(self, x: Float[Tensor, "batch sequence input_size"]) -> Float[Tensor, "batch 1 1 hidden_size"]:
-        """Compute a forward pass through the GRU encoder.
-
-        Parameters
-        ----------
-        x : Tensor
-            Input tensor of shape
-            ``(batch_size, sequence_length, input_size)``.
-
-        Returns
-        -------
-        final_output : Tensor
-            Final output tensor of shape
-            ``(batch_size, 1, 1, hidden_size)``.
-            Note: second dimension and third dimension are 1, corresponding to
-                  one forecast step and the final hidden state respectively.
-        """
+    def forward(
+        self, x: Float[torch.Tensor, "batch sequence input_size"]
+    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+        """Apply the GRU encoder to an input batch."""
         out, h_out = self.gru(x)
 
         out = self.dropout(out)
@@ -84,14 +83,42 @@ class GRU(nn.Module):
 
         final_output = h_out[:, :, -1:, :]
 
-        return final_output
+        return (final_output, None)
 
 
-class LSTM(nn.Module):
+class LSTMEncoder(nn.Module):
     """LSTM encoder for sequence-to-sequence modeling.
 
     Wraps PyTorch's ``LSTM`` with dropout and output reshaping for
     compatibility with encoder–decoder architectures.
+
+    Parameters
+    ----------
+    input_size : int
+        Input feature dimension.
+    hidden_size : int
+        Hidden state dimension.
+    num_layers : int
+        Number of stacked LSTM layers.
+    dropout : float
+        Dropout probability applied to the outputs.
+    device : str, optional
+        Device on which to place the module, by default ``"cpu"``.
+    **kwargs
+        Additional keyword arguments passed for compatibility but ignored.
+
+    Notes
+    -----
+    **Inputs**
+
+    - ``x`` : Tensor
+      Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+
+    **Outputs**
+
+    - ``output`` : Tuple
+      Tuple containing the final
+      output tensor of shape ``(batch_size, 1, 1, hidden_size)`` and None for no auxiliary losses.
     """
 
     def __init__(
@@ -103,23 +130,6 @@ class LSTM(nn.Module):
         device: str = "cpu",
         **kwargs,
     ):
-        """Initialize the LSTM encoder.
-
-        Parameters
-        ----------
-        input_size : int
-            Input feature dimension.
-        hidden_size : int
-            Hidden state dimension.
-        num_layers : int
-            Number of stacked LSTM layers.
-        dropout : float
-            Dropout probability applied to the outputs.
-        device : str, optional
-            Device on which to place the module, by default ``"cpu"``.
-        **kwargs
-            Additional keyword arguments passed for compatibility but ignored.
-        """
         super().__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -135,23 +145,10 @@ class LSTM(nn.Module):
             batch_first=True,
         )
 
-    def forward(self, x: Float[Tensor, "batch sequence input_size"]) -> Float[Tensor, "batch 1 1 hidden_size"]:
-        """Compute a forward pass through the LSTM encoder.
-
-        Parameters
-        ----------
-        x : Tensor
-            Input tensor of shape
-            ``(batch_size, sequence_length, input_size)``.
-
-        Returns
-        -------
-        final_output : Tensor
-            Final output tensor of shape
-            ``(batch_size, 1, 1, hidden_size)``.
-            Note: second dimension and third dimension are 1, corresponding to
-                  one forecast step and the final hidden state respectively.
-        """
+    def forward(
+        self, x: Float[torch.Tensor, "batch sequence input_size"]
+    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+        """Apply the LSTM encoder to an input batch."""
         out, (h_out, c_out) = self.lstm(x)
 
         out = self.dropout(out)
@@ -161,4 +158,4 @@ class LSTM(nn.Module):
 
         final_output = h_out[:, :, -1:, :]
 
-        return final_output
+        return (final_output, None)
