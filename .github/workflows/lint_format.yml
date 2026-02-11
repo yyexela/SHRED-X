@@ -9,6 +9,7 @@ on:
       - "**"
     paths: # Only run linting and formatting for changes to the SHRED-X package
       - 'shredx/**'
+      - 'test/**'
   workflow_dispatch:
 
 permissions:

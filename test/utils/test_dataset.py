@@ -21,7 +21,7 @@ def test_time_series_dataset_success():
 
 def test_time_series_dataset_fail():
     # Test that the dataset fails when the window length is greater than the input tensor length
-    window_length = 50
+    window_length = 51
     input_tensors = [torch.randn(10, 3)]
     with pytest.raises(ValueError):
         TimeSeriesDataset(input_tensors, window_length)
