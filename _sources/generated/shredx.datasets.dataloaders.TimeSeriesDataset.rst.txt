@@ -1,0 +1,10 @@
+shredx.datasets.dataloaders.TimeSeriesDataset
+=============================================
+
+.. currentmodule:: shredx.datasets.dataloaders
+
+.. autoclass:: TimeSeriesDataset
+
+    
+
+    

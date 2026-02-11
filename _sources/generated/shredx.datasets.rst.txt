@@ -1,7 +1,7 @@
-﻿shredx
-======
+shredx.datasets
+===============
 
-.. automodule:: shredx
+.. automodule:: shredx.datasets
 
    
 
@@ -16,6 +16,4 @@
    :toctree:
    :recursive:
 
-   datasets
-   modules
-   utils
+   dataloaders
