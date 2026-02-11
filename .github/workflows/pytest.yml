@@ -5,6 +5,8 @@ name: Run Tests
 
 on:
   push:
+    branches:
+      - "**"
     paths: # Only run tests for changes to the SHRED-X package
       - 'shredx/**'
   workflow_dispatch:

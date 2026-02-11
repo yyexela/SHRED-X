@@ -5,6 +5,8 @@ name: Linter
 
 on:
   push:
+    branches:
+      - "**"
     paths: # Only run linting and formatting for changes to the SHRED-X package
       - 'shredx/**'
   workflow_dispatch:
