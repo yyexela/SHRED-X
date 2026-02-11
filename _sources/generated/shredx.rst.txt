@@ -16,4 +16,5 @@
    :toctree:
    :recursive:
 
+   modules
    utils

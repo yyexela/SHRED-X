@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx.utils.scaling.inverse_min_max_scale &#8212; SHRED-X Documentation</title>
+    <title>shredx.modules.rnn.LSTMEncoder &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.utils.scaling.inverse_min_max_scale';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.rnn.LSTMEncoder';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.utils.scaling.min_max_scale" href="shredx.utils.scaling.min_max_scale.html" />
-    <link rel="prev" title="shredx.utils.scaling" href="shredx.utils.scaling.html" />
+    <link rel="next" title="shredx.utils" href="shredx.utils.html" />
+    <link rel="prev" title="shredx.modules.rnn.GRUEncoder" href="shredx.modules.rnn.GRUEncoder.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -266,7 +266,7 @@
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="shredx.html">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.cnn.html">shredx.modules.cnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.cnn.CNNDecoder.html">shredx.modules.cnn.CNNDecoder</a></li>
 </ul>
@@ -276,16 +276,16 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MLPEncoder.html">shredx.modules.mlp.MLPEncoder</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.GRUEncoder.html">shredx.modules.rnn.GRUEncoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.modules.rnn.LSTMEncoder</a></li>
 </ul>
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.utils.scaling.html">shredx.utils.scaling</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.utils.scaling.inverse_min_max_scale</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.scaling.html">shredx.utils.scaling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="shredx.utils.scaling.inverse_min_max_scale.html">shredx.utils.scaling.inverse_min_max_scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.scaling.min_max_scale.html">shredx.utils.scaling.min_max_scale</a></li>
 </ul>
 </details></li>
@@ -340,12 +340,12 @@
     <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
     
     
-    <li class="breadcrumb-item"><a href="shredx.utils.html" class="nav-link">shredx.utils</a></li>
+    <li class="breadcrumb-item"><a href="shredx.modules.html" class="nav-link">shredx.modules</a></li>
     
     
-    <li class="breadcrumb-item"><a href="shredx.utils.scaling.html" class="nav-link">shredx.utils.scaling</a></li>
+    <li class="breadcrumb-item"><a href="shredx.modules.rnn.html" class="nav-link">shredx.modules.rnn</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.utils.scaling.inverse_min_max_scale</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.modules.rnn.LSTMEncoder</span></li>
   </ul>
 </nav>
 </div>
@@ -362,42 +362,54 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="shredx-utils-scaling-inverse-min-max-scale">
-<h1>shredx.utils.scaling.inverse_min_max_scale<a class="headerlink" href="#shredx-utils-scaling-inverse-min-max-scale" title="Link to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="shredx.utils.scaling.inverse_min_max_scale">
-<span class="sig-prename descclassname"><span class="pre">shredx.utils.scaling.</span></span><span class="sig-name descname"><span class="pre">inverse_min_max_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scaled_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Float</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'...</span> <span class="pre">dim'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_min_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Float</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'...</span> <span class="pre">dim'</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#shredx.utils.scaling.inverse_min_max_scale" title="Link to this definition">#</a></dt>
-<dd><p>Invert min-max scaling and recover the original data scale.</p>
-<p>This performs the reverse transformation of <a class="reference internal" href="shredx.utils.scaling.min_max_scale.html#shredx.utils.scaling.min_max_scale" title="shredx.utils.scaling.min_max_scale"><code class="xref py py-func docutils literal notranslate"><span class="pre">min_max_scale()</span></code></a>
-using the original <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> values and the <code class="docutils literal notranslate"><span class="pre">feature_range</span></code>
-used during scaling.</p>
+  <section id="shredx-modules-rnn-lstmencoder">
+<h1>shredx.modules.rnn.LSTMEncoder<a class="headerlink" href="#shredx-modules-rnn-lstmencoder" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="shredx.modules.rnn.LSTMEncoder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">shredx.modules.rnn.</span></span><span class="sig-name descname"><span class="pre">LSTMEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shredx.modules.rnn.LSTMEncoder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>LSTM encoder for sequence-to-sequence modeling.</p>
+<p>Wraps PyTorch’s <code class="docutils literal notranslate"><span class="pre">LSTM</span></code> with dropout and output reshaping for
+compatibility with encoder–decoder architectures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>scaled_tensor</strong><span class="classifier">Float[torch.Tensor, “… dim”]</span></dt><dd><p>Tensor that was previously scaled with min-max normalization.</p>
+<dt><strong>input_size</strong><span class="classifier">int</span></dt><dd><p>Input feature dimension.</p>
 </dd>
-<dt><strong>original_min_max</strong><span class="classifier">tuple[float, float]</span></dt><dd><p>Tuple <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> values from the original data before scaling.</p>
+<dt><strong>hidden_size</strong><span class="classifier">int</span></dt><dd><p>Hidden state dimension.</p>
 </dd>
-<dt><strong>feature_range</strong><span class="classifier">tuple[float, float], optional</span></dt><dd><p>Feature range that was used during the original scaling, by
-default <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1)</span></code>.</p>
+<dt><strong>num_layers</strong><span class="classifier">int</span></dt><dd><p>Number of stacked LSTM layers.</p>
 </dd>
-</dl>
+<dt><strong>dropout</strong><span class="classifier">float</span></dt><dd><p>Dropout probability applied to the outputs.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>Float[torch.Tensor, “… dim”]</dt><dd><p>Tensor mapped back to the original scale.</p>
+<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device on which to place the module, by default <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">feature_range</span></code> is not a tuple of two elements.</p>
-</dd>
-<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">original_min_max</span></code> is not a tuple of two elements.</p>
+<dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments passed for compatibility but ignored.</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code>(x)</p></td>
+<td><p>Apply the LSTM encoder to an input batch.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Inputs</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> : Tensor
+Input tensor of shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">sequence_length,</span> <span class="pre">input_size)</span></code>.</p></li>
+</ul>
+<p><strong>Outputs</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">output</span></code> : Tuple
+Tuple containing the final
+output tensor of shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">hidden_size)</span></code> and None for no auxiliary losses.</p></li>
+</ul>
 </dd></dl>
 
 </section>
@@ -413,20 +425,20 @@ default <code class="docutils literal notranslate"><span class="pre">(0,</span> 
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="shredx.utils.scaling.html"
+       href="shredx.modules.rnn.GRUEncoder.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">shredx.utils.scaling</p>
+        <p class="prev-next-title">shredx.modules.rnn.GRUEncoder</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.utils.scaling.min_max_scale.html"
+       href="shredx.utils.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.utils.scaling.min_max_scale</p>
+        <p class="prev-next-title">shredx.utils</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -449,7 +461,7 @@ default <code class="docutils literal notranslate"><span class="pre">(0,</span> 
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.utils.scaling.inverse_min_max_scale"><code class="docutils literal notranslate"><span class="pre">inverse_min_max_scale()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.modules.rnn.LSTMEncoder"><code class="docutils literal notranslate"><span class="pre">LSTMEncoder</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -457,7 +469,7 @@ default <code class="docutils literal notranslate"><span class="pre">(0,</span> 
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.utils.scaling.inverse_min_max_scale.rst.txt"
+      <li><a href="../_sources/generated/shredx.modules.rnn.LSTMEncoder.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

@@ -1,0 +1,19 @@
+shredx.modules.mlp
+==================
+
+.. automodule:: shredx.modules.mlp
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      MLPDecoder
+      MLPEncoder
+

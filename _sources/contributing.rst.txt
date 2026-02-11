@@ -27,12 +27,12 @@ We use `pre-commit <https://pre-commit.com/>`__ to verify all code is linted, fo
 Linting and Formatting
 ----------------------
 
-Linting ensures that the code logic makes sense and nothing is being called in a way that would surely break. For this, we use `Ruff <https://docs.astral.sh/ruff/>`__. We also use Ruff for code formatting, ensuring a standard format across all code.
+Linting ensures that the code logic makes sense and nothing is being called in a way that would surely break. For this, we use `Ruff <https://docs.astral.sh/ruff/>`__. We also use Ruff for code formatting, ensuring a standard format across all code. There is a Ruff VSCode extension that can be used to help with linting and formatting.
 
 Type checking
 -------------
 
-In this repository, we use `Pyrefly <https://pyrefly.org/>`__ to check all functions are called with their specified types. We also use `jaxtyping <https://docs.kidger.site/jaxtyping/api/array/>`__ to allow for clear function typing for PyTorch array dimensions.
+In this repository, we use `Pyrefly <https://pyrefly.org/>`__ to check all functions are called with their specified types. We also use `jaxtyping <https://docs.kidger.site/jaxtyping/api/array/>`__ to allow for clear function typing for PyTorch array dimensions. There is a Pyrefly VSCode extension that can be used to help with type checking.
 
 Building/Serving Documentation
 ------------------------------
