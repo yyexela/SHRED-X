@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx &#8212; SHRED-X Documentation</title>
+    <title>shredx.modules.sindy_layer &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.sindy_layer';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.datasets" href="shredx.datasets.html" />
-    <link rel="prev" title="API" href="../api.html" />
+    <link rel="next" title="shredx.modules.sindy_layer.SindyLayer" href="shredx.modules.sindy_layer.SindyLayer.html" />
+    <link rel="prev" title="shredx.modules.rnn.LSTMEncoder" href="shredx.modules.rnn.LSTMEncoder.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -265,7 +265,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="shredx.html">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="shredx.datasets.html">shredx.datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.datasets.dataloaders.html">shredx.datasets.dataloaders</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.datasets.dataloaders.TimeSeriesDataset.html">shredx.datasets.dataloaders.TimeSeriesDataset</a></li>
@@ -273,7 +273,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.cnn.html">shredx.modules.cnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.cnn.CNNDecoder.html">shredx.modules.cnn.CNNDecoder</a></li>
 </ul>
@@ -288,7 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.sindy_layer.html">shredx.modules.sindy_layer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">shredx.modules.sindy_layer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.sindy_layer.SindyLayer.html">shredx.modules.sindy_layer.SindyLayer</a></li>
 </ul>
 </details></li>
@@ -351,7 +351,13 @@
     
     <li class="breadcrumb-item"><a href="../api.html" class="nav-link">API</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx</span></li>
+    
+    <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.modules.html" class="nav-link">shredx.modules</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.modules.sindy_layer</span></li>
   </ul>
 </nav>
 </div>
@@ -368,19 +374,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-shredx">
-<span id="shredx"></span><h1>shredx<a class="headerlink" href="#module-shredx" title="Link to this heading">#</a></h1>
-<p class="rubric">Modules</p>
+  <section id="module-shredx.modules.sindy_layer">
+<span id="shredx-modules-sindy-layer"></span><h1>shredx.modules.sindy_layer<a class="headerlink" href="#module-shredx.modules.sindy_layer" title="Link to this heading">#</a></h1>
+<p>SINDy Layer module.</p>
+<p>Implements a differentiable SINDy (Sparse Identification of Nonlinear Dynamics)
+layer for learning interpretable ODEs and performing arbitrary-length forecasting.</p>
+<p class="rubric">Classes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.datasets.html#module-shredx.datasets" title="shredx.datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="shredx.modules.html#module-shredx.modules" title="shredx.modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modules</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.utils.html#module-shredx.utils" title="shredx.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="shredx.modules.sindy_layer.SindyLayer.html#shredx.modules.sindy_layer.SindyLayer" title="shredx.modules.sindy_layer.SindyLayer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SindyLayer</span></code></a>(hidden_size, forecast_length[, ...])</p></td>
+<td><p>Differentiable SINDy layer for ODE-based forecasting.</p></td>
 </tr>
 </tbody>
 </table>
@@ -398,20 +401,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../api.html"
+       href="shredx.modules.rnn.LSTMEncoder.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">API</p>
+        <p class="prev-next-title">shredx.modules.rnn.LSTMEncoder</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.datasets.html"
+       href="shredx.modules.sindy_layer.SindyLayer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.datasets</p>
+        <p class="prev-next-title">shredx.modules.sindy_layer.SindyLayer</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -430,7 +433,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.rst.txt"
+      <li><a href="../_sources/generated/shredx.modules.sindy_layer.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

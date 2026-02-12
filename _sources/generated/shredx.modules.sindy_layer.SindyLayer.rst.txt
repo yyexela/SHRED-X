@@ -1,0 +1,10 @@
+shredx.modules.sindy\_layer.SindyLayer
+======================================
+
+.. currentmodule:: shredx.modules.sindy_layer
+
+.. autoclass:: SindyLayer
+
+    
+
+    

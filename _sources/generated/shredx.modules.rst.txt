@@ -19,3 +19,4 @@ shredx.modules
    cnn
    mlp
    rnn
+   sindy_layer

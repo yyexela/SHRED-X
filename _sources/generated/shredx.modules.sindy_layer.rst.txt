@@ -1,0 +1,18 @@
+shredx.modules.sindy\_layer
+===========================
+
+.. automodule:: shredx.modules.sindy_layer
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      SindyLayer
+

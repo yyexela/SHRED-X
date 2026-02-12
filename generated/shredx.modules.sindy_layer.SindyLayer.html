@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx &#8212; SHRED-X Documentation</title>
+    <title>shredx.modules.sindy_layer.SindyLayer &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.sindy_layer.SindyLayer';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.datasets" href="shredx.datasets.html" />
-    <link rel="prev" title="API" href="../api.html" />
+    <link rel="next" title="shredx.utils" href="shredx.utils.html" />
+    <link rel="prev" title="shredx.modules.sindy_layer" href="shredx.modules.sindy_layer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -265,7 +265,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="shredx.html">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="shredx.datasets.html">shredx.datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.datasets.dataloaders.html">shredx.datasets.dataloaders</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.datasets.dataloaders.TimeSeriesDataset.html">shredx.datasets.dataloaders.TimeSeriesDataset</a></li>
@@ -273,7 +273,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.cnn.html">shredx.modules.cnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.cnn.CNNDecoder.html">shredx.modules.cnn.CNNDecoder</a></li>
 </ul>
@@ -288,8 +288,8 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.sindy_layer.html">shredx.modules.sindy_layer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="shredx.modules.sindy_layer.SindyLayer.html">shredx.modules.sindy_layer.SindyLayer</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.modules.sindy_layer.html">shredx.modules.sindy_layer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.modules.sindy_layer.SindyLayer</a></li>
 </ul>
 </details></li>
 </ul>
@@ -351,7 +351,16 @@
     
     <li class="breadcrumb-item"><a href="../api.html" class="nav-link">API</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx</span></li>
+    
+    <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.modules.html" class="nav-link">shredx.modules</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.modules.sindy_layer.html" class="nav-link">shredx.modules.sindy_layer</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.modules.sindy_layer.SindyLayer</span></li>
   </ul>
 </nav>
 </div>
@@ -368,23 +377,99 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-shredx">
-<span id="shredx"></span><h1>shredx<a class="headerlink" href="#module-shredx" title="Link to this heading">#</a></h1>
-<p class="rubric">Modules</p>
+  <section id="shredx-modules-sindy-layer-sindylayer">
+<h1>shredx.modules.sindy_layer.SindyLayer<a class="headerlink" href="#shredx-modules-sindy-layer-sindylayer" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="shredx.modules.sindy_layer.SindyLayer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">shredx.modules.sindy_layer.</span></span><span class="sig-name descname"><span class="pre">SindyLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_symmetry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_init</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shredx.modules.sindy_layer.SindyLayer" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Differentiable SINDy layer for ODE-based forecasting.</p>
+<p>Learns sparse polynomial dynamics from data and uses ODE integration
+for arbitrary-length forecasting. Supports both strict symmetry
+(parameterized via lower triangle) and general coefficient matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>hidden_size</strong><span class="classifier">int</span></dt><dd><p>Input/output dimension of the layer.</p>
+</dd>
+<dt><strong>forecast_length</strong><span class="classifier">int</span></dt><dd><p>Number of future timesteps to predict.</p>
+</dd>
+<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device to place the model on, by default <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
+</dd>
+<dt><strong>strict_symmetry</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, enforces symmetric coefficient matrix via lower triangle
+parameterization, by default <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+<dt><strong>std_init</strong><span class="classifier">float, optional</span></dt><dd><p>Standard deviation for initial coefficients, by default <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments (ignored).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.datasets.html#module-shredx.datasets" title="shredx.datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dense_matrix_from_symmetric_params</span></code>(params)</p></td>
+<td><p>Build symmetric dense matrix from lower-triangle parameters.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="shredx.modules.html#module-shredx.modules" title="shredx.modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modules</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code>(x)</p></td>
+<td><p>Integrate learned ODE dynamics to produce multi-step forecasts.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.utils.html#module-shredx.utils" title="shredx.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dense_sindy_coefficients</span></code>()</p></td>
+<td><p>Return dense SINDy coefficient matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_eigenvalues</span></code>()</p></td>
+<td><p>Return eigenvalues of the SINDy coefficient matrix (1j * matrix).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_raw_sindy_coefficients</span></code>()</p></td>
+<td><p>Return raw SINDy coefficients (1D or full matrix).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_raw_sindy_coefficients</span></code>(coefficients)</p></td>
+<td><p>Set raw SINDy coefficients from a tensor.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p class="rubric">Notes</p>
+<p><strong>get_dense_sindy_coefficients</strong></p>
+<ul class="simple">
+<li><p>Converts symmetric parameters (1D) to a dense matrix when
+<code class="docutils literal notranslate"><span class="pre">strict_symmetry</span></code> is True; otherwise returns the stored full matrix.</p></li>
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;hidden_size</span> <span class="pre">hidden_size&quot;]</span></code>.</p></li>
+</ul>
+<p><strong>get_raw_sindy_coefficients</strong></p>
+<ul class="simple">
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;library_dim</span> <span class="pre">library_dim&quot;]</span></code> when
+<code class="docutils literal notranslate"><span class="pre">strict_symmetry</span></code> is False, else
+<code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;num_params&quot;]</span></code> (lower triangle 1D).</p></li>
+</ul>
+<p><strong>set_raw_sindy_coefficients</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">coefficients</span></code> : Float[torch.Tensor, “library_dim library_dim”] | Float[torch.Tensor, “num_params”]
+Raw SINDy coefficients (same shape as <code class="docutils literal notranslate"><span class="pre">get_raw_sindy_coefficients</span></code>).</p></li>
+<li><p>Updates the layer parameters in-place; no return value.</p></li>
+</ul>
+<p><strong>dense_matrix_from_symmetric_params</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code> : Float[torch.Tensor, “num_params”]
+1D lower-triangle coefficients.</p></li>
+<li><p>Builds a symmetric matrix by filling the lower triangle and
+reflecting. Returns <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;library_dim</span> <span class="pre">library_dim&quot;]</span></code>.</p></li>
+</ul>
+<p><strong>get_eigenvalues</strong></p>
+<ul class="simple">
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;hidden_size&quot;]</span></code>: eigenvalues of the
+SINDy coefficient matrix (1j * matrix).</p></li>
+</ul>
+<p><strong>forward</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> : Float[torch.Tensor, “batch_size hidden_size”]</p></li>
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;batch_size</span> <span class="pre">forecast_length</span> <span class="pre">hidden_size&quot;]</span></code>:
+rollout from integrating the learned ODE (dopri5) over
+<code class="docutils literal notranslate"><span class="pre">forecast_length</span></code> steps.</p></li>
+</ul>
+</dd></dl>
+
 </section>
 
 
@@ -398,20 +483,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../api.html"
+       href="shredx.modules.sindy_layer.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">API</p>
+        <p class="prev-next-title">shredx.modules.sindy_layer</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.datasets.html"
+       href="shredx.utils.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.datasets</p>
+        <p class="prev-next-title">shredx.utils</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -427,10 +512,22 @@
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.modules.sindy_layer.SindyLayer"><code class="docutils literal notranslate"><span class="pre">SindyLayer</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.rst.txt"
+      <li><a href="../_sources/generated/shredx.modules.sindy_layer.SindyLayer.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
