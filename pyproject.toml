@@ -11,7 +11,8 @@ dependencies = [
     "torch>=2.10.0",
     "torchvision>=0.25.0",
     "einops>=0.8.2",
-    "jaxtyping>=0.3.7"
+    "jaxtyping>=0.3.7",
+    "torchdiffeq>=0.2.5"
 ]
 requires-python = ">=3.13.0"
 description = "SHRED-X"
