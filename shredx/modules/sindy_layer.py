@@ -13,7 +13,7 @@ from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 
 
 class SindyLayer(nn.Module):
-    """Differentiable SINDy layer for ODE-based forecasting.
+    r"""Differentiable SINDy layer for ODE-based forecasting.
 
     Learns sparse polynomial dynamics from data and uses ODE integration
     for arbitrary-length forecasting. Supports both strict symmetry
@@ -26,53 +26,63 @@ class SindyLayer(nn.Module):
     forecast_length : int
         Number of future timesteps to predict.
     device : str, optional
-        Device to place the model on, by default ``"cpu"``.
+        Device to place the model on. Default is ``"cpu"``.
     strict_symmetry : bool, optional
         If True, enforces symmetric coefficient matrix via lower triangle
-        parameterization, by default ``True``.
+        parameterization. Default is ``True``.
     std_init : float, optional
-        Standard deviation for initial coefficients, by default ``0.1``.
+        Standard deviation for initial coefficients. Default is ``0.1``.
     **kwargs
         Additional keyword arguments (ignored).
 
     Notes
     -----
-    **get_dense_sindy_coefficients**
+    **Class Methods:**
+
+    **get_dense_sindy_coefficients():**
 
     - Converts symmetric parameters (1D) to a dense matrix when
       ``strict_symmetry`` is True; otherwise returns the stored full matrix.
-    - Returns ``Float[torch.Tensor, "hidden_size hidden_size"]``.
+    - Returns:
+        - ``Float[torch.Tensor, "hidden_size hidden_size"]``. Dense SINDy coefficient matrix.
 
-    **get_raw_sindy_coefficients**
+    **get_raw_sindy_coefficients():**
 
-    - Returns ``Float[torch.Tensor, "library_dim library_dim"]`` when
-      ``strict_symmetry`` is False, else
-      ``Float[torch.Tensor, "num_params"]`` (lower triangle 1D).
+    - Returns raw SINDy coefficients (1D lower triangle or full matrix).
+    - Returns:
+        - ``Float[torch.Tensor, "library_dim library_dim"]`` when ``strict_symmetry`` is False, else
+          ``Float[torch.Tensor, "num_params"]`` (lower triangle 1D).
 
-    **set_raw_sindy_coefficients**
+    **set_raw_sindy_coefficients(coefficients):**
 
-    - ``coefficients`` : Float[torch.Tensor, "library_dim library_dim"] | Float[torch.Tensor, "num_params"]
-      Raw SINDy coefficients (same shape as ``get_raw_sindy_coefficients``).
-    - Updates the layer parameters in-place; no return value.
+    - Updates the layer parameters in-place from raw SINDy coefficients.
+    - Parameters:
+        - coefficients : ``Float[torch.Tensor, "library_dim library_dim"]`` | ``Float[torch.Tensor, "num_params"]``.
+          Raw SINDy coefficients (same shape as ``get_raw_sindy_coefficients``).
+    - Returns:
+        - None.
 
-    **dense_matrix_from_symmetric_params**
+    **dense_matrix_from_symmetric_params(params):**
 
-    - ``params`` : Float[torch.Tensor, "num_params"]
-      1D lower-triangle coefficients.
-    - Builds a symmetric matrix by filling the lower triangle and
-      reflecting. Returns ``Float[torch.Tensor, "library_dim library_dim"]``.
+    - Builds a symmetric matrix by filling the lower triangle and reflecting.
+    - Parameters:
+        - params : ``Float[torch.Tensor, "num_params"]``. 1D lower-triangle coefficients.
+    - Returns:
+        - ``Float[torch.Tensor, "library_dim library_dim"]``. Dense symmetric matrix.
 
-    **get_eigenvalues**
+    **get_eigenvalues():**
 
-    - Returns ``Float[torch.Tensor, "hidden_size"]``: eigenvalues of the
-      SINDy coefficient matrix (1j * matrix).
+    - Returns eigenvalues of the SINDy coefficient matrix (1j * matrix).
+    - Returns:
+        - ``Float[torch.Tensor, "hidden_size"]``. Eigenvalues.
 
-    **forward**
+    **forward(x):**
 
-    - ``x`` : Float[torch.Tensor, "batch_size hidden_size"]
-    - Returns ``Float[torch.Tensor, "batch_size forecast_length hidden_size"]``:
-      rollout from integrating the learned ODE (dopri5) over
-      ``forecast_length`` steps.
+    - Integrates the learned ODE (dopri5) over ``forecast_length`` steps to produce multi-step forecasts.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch_size hidden_size"]``. Input state.
+    - Returns:
+        - ``Float[torch.Tensor, "batch_size forecast_length hidden_size"]``. Rollout of predicted states.
     """
 
     def __init__(

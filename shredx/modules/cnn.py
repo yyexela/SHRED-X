@@ -8,7 +8,7 @@ from typing import List
 
 
 class CNNDecoder(nn.Module):
-    """1D convolutional neural network (CNN) decoder.
+    r"""1D convolutional neural network (CNN) decoder.
 
     Creates a convolutional network with logarithmically spaced channel sizes
     between the input and output dimensions. Uses 1D convolutions with kernel
@@ -26,22 +26,23 @@ class CNNDecoder(nn.Module):
     dropout : float
         Dropout probability applied after the final layer.
     device : str, optional
-        Device on which to place the module, by default ``"cpu"``.
+        Device on which to place the module. Default is ``"cpu"``.
 
     Notes
     -----
+    **Class Methods:**
 
-    **Inputs**
+    **forward(x):**
 
-    - ``x`` : Tuple
-      Tuple containing the input tensor of shape
-      ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses.
-
-    **Outputs**
-
-    - ``output`` : Tuple
-      Tuple containing the decoded tensor of shape
-      ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses.
+    - Applies the CNN decoder to an input batch.
+    - Parameters:
+        - x : tuple. Tuple containing the input tensor of shape
+          ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses
+          (``List[torch.FloatTensor] | None``).
+    - Returns:
+        - tuple. Tuple containing the decoded tensor of shape
+          ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses
+          (``List[torch.FloatTensor] | None``).
     """
 
     def __init__(

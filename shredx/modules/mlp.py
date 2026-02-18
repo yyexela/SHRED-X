@@ -10,7 +10,7 @@ from typing import List
 
 
 class MLPEncoder(nn.Module):
-    """Multi-layer perceptron (MLP) encoder.
+    r"""Multi-layer perceptron (MLP) encoder.
 
     Creates a feed-forward neural network with identical layer sizes.
     Uses ReLU activations between layers and applies dropout after the
@@ -27,20 +27,20 @@ class MLPEncoder(nn.Module):
     dropout : float
         Dropout probability applied to the outputs.
     device : str, optional
-        Device on which to place the module, by default ``"cpu"``.
+        Device on which to place the module. Default is ``"cpu"``.
 
     Notes
     -----
-    **Inputs**
+    **Class Methods:**
 
-    - ``x`` : torch.Tensor
-      Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+    **forward(x):**
 
-    **Outputs**
-
-    - ``output`` : Tuple
-      Tuple containing the final
-      output tensor of shape ``(batch_size, 1, 1, hidden_size)`` and None for no auxiliary losses.
+    - Applies the MLP encoder to an input batch.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -88,7 +88,7 @@ class MLPEncoder(nn.Module):
 
 
 class MLPDecoder(nn.Module):
-    """Multi-Layer Perceptron (MLP) decoder.
+    r"""Multi-Layer Perceptron (MLP) decoder.
 
     Creates a feedforward neural network with logarithmically spaced layer
     sizes between the input and output dimensions. Uses ReLU activations
@@ -105,21 +105,23 @@ class MLPDecoder(nn.Module):
     dropout : float
         Dropout probability applied after the final layer.
     device : str, optional
-        Device on which to place the model, by default ``"cpu"``.
+        Device on which to place the model. Default is ``"cpu"``.
 
     Notes
     -----
-    **Inputs**
+    **Class Methods:**
 
-    - ``x`` : Tuple
-      Tuple containing the input tensor of shape
-      ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses.
+    **forward(x):**
 
-    **Outputs**
-
-    - ``output`` : Tuple
-      Tuple containing the decoded tensor of shape
-      ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses.
+    - Applies the MLP decoder to an input batch.
+    - Parameters:
+        - x : tuple. Tuple containing the input tensor of shape
+          ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses
+          (``List[torch.FloatTensor] | None``).
+    - Returns:
+        - tuple. Tuple containing the decoded tensor of shape
+          ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses
+          (``List[torch.FloatTensor] | None``).
     """
 
     def __init__(

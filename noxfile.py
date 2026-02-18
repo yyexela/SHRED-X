@@ -29,6 +29,8 @@ def typecheck(session):
 @nox.session
 def build_docs(session):
     session.install(".[dev]")
+    session.run("rm", "-rf", "docs/source/generated")
+    session.run("rm", "-rf", "docs/build")
     for rst_file in glob.glob("docs/source/*.rst"):
         session.run("sphinx-autogen", "-o", "docs/source/generated", rst_file)
     session.run("sphinx-build", "-M", "html", "docs/source", "docs/build", "--fail-on-warning")

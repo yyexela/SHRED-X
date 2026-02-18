@@ -12,7 +12,7 @@ from typing import Tuple
 
 
 class GRUEncoder(nn.Module):
-    """GRU encoder for sequence-to-sequence modeling.
+    r"""GRU encoder for sequence-to-sequence modeling.
 
     Wraps PyTorch's ``GRU`` with dropout and output reshaping for
     compatibility with encoder–decoder architectures.
@@ -28,22 +28,22 @@ class GRUEncoder(nn.Module):
     dropout : float
         Dropout probability applied to the outputs.
     device : str, optional
-        Device on which to place the module, by default ``"cpu"``.
+        Device on which to place the module. Default is ``"cpu"``.
     **kwargs
         Additional keyword arguments passed for compatibility but ignored.
 
     Notes
     -----
-    **Inputs**
+    **Class Methods:**
 
-    - ``x`` : Tensor
-      Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+    **forward(x):**
 
-    **Outputs**
-
-    - ``output`` : Tuple
-      Tuple containing the final
-      output tensor of shape ``(batch_size, 1, 1, hidden_size)`` and None for no auxiliary losses.
+    - Applies the GRU encoder to an input batch.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -87,7 +87,7 @@ class GRUEncoder(nn.Module):
 
 
 class LSTMEncoder(nn.Module):
-    """LSTM encoder for sequence-to-sequence modeling.
+    r"""LSTM encoder for sequence-to-sequence modeling.
 
     Wraps PyTorch's ``LSTM`` with dropout and output reshaping for
     compatibility with encoder–decoder architectures.
@@ -103,22 +103,22 @@ class LSTMEncoder(nn.Module):
     dropout : float
         Dropout probability applied to the outputs.
     device : str, optional
-        Device on which to place the module, by default ``"cpu"``.
+        Device on which to place the module. Default is ``"cpu"``.
     **kwargs
         Additional keyword arguments passed for compatibility but ignored.
 
     Notes
     -----
-    **Inputs**
+    **Class Methods:**
 
-    - ``x`` : Tensor
-      Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+    **forward(x):**
 
-    **Outputs**
-
-    - ``output`` : Tuple
-      Tuple containing the final
-      output tensor of shape ``(batch_size, 1, 1, hidden_size)`` and None for no auxiliary losses.
+    - Applies the LSTM encoder to an input batch.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
