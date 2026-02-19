@@ -27,6 +27,14 @@ def typecheck(session):
 
 
 @nox.session
+def lft(session):
+    session.install(".[dev]")
+    session.run("pyrefly", "check")
+    session.run("ruff", "check")
+    session.run("ruff", "format")
+
+
+@nox.session
 def build_docs(session):
     session.install(".[dev]")
     session.run("rm", "-rf", "docs/source/generated")

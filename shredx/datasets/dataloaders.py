@@ -71,7 +71,7 @@ class TimeSeriesDataset(Dataset):
         length: int,
         output_tensors: list[Float[torch.Tensor, "time_steps ..."]] | None = None,
         device: str = "cpu",
-    ):
+    ) -> None:
         """Initialize ``TimeSeriesDataset``."""
         super().__init__()
         self.length = length

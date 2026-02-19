@@ -93,7 +93,7 @@ class SindyLayer(nn.Module):
         strict_symmetry: bool = True,
         std_init: float = 0.1,
         **kwargs,
-    ):
+    ) -> None:
         """Initialize the SINDy layer."""
         # Initialize parent class
         super().__init__()
@@ -145,7 +145,7 @@ class SindyLayer(nn.Module):
     def set_raw_sindy_coefficients(
         self,
         coefficients: Float[torch.Tensor, "library_dim library_dim"] | Float[torch.Tensor, "num_params"],  # noqa: F821
-    ):
+    ) -> None:
         """Set raw SINDy coefficients from a tensor."""
         if self.strict_symmetry:
             self.triangle_coefficients.data.copy_(coefficients)

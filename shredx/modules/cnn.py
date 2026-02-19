@@ -52,7 +52,7 @@ class CNNDecoder(nn.Module):
         n_layers: int,
         dropout: float,
         device: str = "cpu",
-    ):
+    ) -> None:
         super().__init__()
         # Class variables
         self.in_dim = in_dim

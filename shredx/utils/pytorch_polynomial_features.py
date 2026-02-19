@@ -72,7 +72,7 @@ class PolynomialFeatures(torch.nn.Module):
         - dict[int, int]. Mapping of feature indices to their powers.
     """
 
-    def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True):
+    def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True) -> None:
         """Initialize polynomial features."""
         super(PolynomialFeatures, self).__init__()
 
@@ -141,7 +141,7 @@ class PolynomialFeatures(torch.nn.Module):
 
         return output
 
-    def fit(self, X: Float[torch.Tensor, "n_samples n_features_in"]):
+    def fit(self, X: Float[torch.Tensor, "n_samples n_features_in"]) -> "PolynomialFeatures":
         """Fit the polynomial features transformer to the data."""
         self.n_feature_in = X.shape[-1]
 
