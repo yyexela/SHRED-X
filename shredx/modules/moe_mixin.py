@@ -85,7 +85,7 @@ class MOE_SINDy_Layer_Helpers_Mixin:
             expert.forecast_length = forecast_length
 
     def get_sindy_layer_coefficients_eigenvalues(self) -> list[Float[torch.Tensor, "hidden_size"]]:  # noqa: F821
-        """Get the eigenvalues of SINDy coefficient matrices for all experts."""
+        """Get the eigenvalues of SINDy coefficient matrices for all SINDy experts."""
         with torch.no_grad():
             eigvs_l = []
             for expert in self.experts:
