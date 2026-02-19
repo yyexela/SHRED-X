@@ -12,7 +12,7 @@ from jaxtyping import Float
 
 
 class TimeSeriesDataset(Dataset):
-    """Dataset of sliding windows over time series tensors.
+    r"""Dataset of sliding windows over time series tensors.
 
     Builds a dataset from lists of input and output tensors, each of shape
     ``(time_steps, ...)``. Assumes input and output tensors have the same
@@ -28,19 +28,41 @@ class TimeSeriesDataset(Dataset):
         Length of each sliding window.
     output_tensors : list of torch.Tensor, optional
         List of output tensors, each of shape ``(time_steps, ...)``.
-        If ``None``, output windows are the same as input windows.
+        If ``None``, output windows are the same as input windows. Default is ``None``.
     device : str, optional
-        Device to place tensors on, by default ``"cpu"``.
+        Device to place tensors on. Default is ``"cpu"``.
+
+    Raises
+    ------
+    ValueError
+        If no valid windows can be created (e.g. tensor lengths too short for ``length``).
 
     Notes
     -----
-    **__len__**
+    **Class Methods:**
+
+    **__len__():**
 
     - Returns the total number of valid windows across all tensors.
+    - Returns:
+        - int. Total number of windows.
 
-    **__getitem__**
+    **__getitem__(index):**
 
-    - Returns ``(input_window, output_window)``, each of shape ``(length, ...)``.
+    - Returns the input and output windows for a given index.
+    - Parameters:
+        - index : int. Index of the window to return.
+    - Returns:
+        - tuple of ``(Float[torch.Tensor, "length ..."], Float[torch.Tensor, "length ..."])``.
+          ``(input_window, output_window)``, each of shape ``(length, ...)``.
+
+    **prepare_tensors(tensors):**
+
+    - Converts a list of tensors to float32 and moves them to the configured device.
+    - Parameters:
+        - tensors : list of ``Float[torch.Tensor, "time_steps ..."]``. List of tensors to prepare.
+    - Returns:
+        - list of ``Float[torch.Tensor, "time_steps ..."]``. Tensors on the correct device in float32.
     """
 
     def __init__(
@@ -49,7 +71,7 @@ class TimeSeriesDataset(Dataset):
         length: int,
         output_tensors: list[Float[torch.Tensor, "time_steps ..."]] | None = None,
         device: str = "cpu",
-    ):
+    ) -> None:
         """Initialize ``TimeSeriesDataset``."""
         super().__init__()
         self.length = length
@@ -90,8 +112,6 @@ class TimeSeriesDataset(Dataset):
         -------
         list of Float[torch.Tensor, "time_steps ..."]
             List of tensors on the correct device in float32.
-
-        :pri
         """
         # To float32
         tensors = [tensor.float() for tensor in tensors]

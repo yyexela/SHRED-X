@@ -22,7 +22,6 @@ readme = "README.md"
 dev  = [
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
-    "spin>=0.17",
     "sphinx>=9.1.0",
     "numpydoc>=1.10.0",
     "pyrefly>=0.52.0",

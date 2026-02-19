@@ -9,7 +9,7 @@ from itertools import combinations_with_replacement, combinations
 
 
 class PolynomialFeatures(torch.nn.Module):
-    """PyTorch implementation of polynomial features that supports backpropagation.
+    r"""PyTorch implementation of polynomial features that supports backpropagation.
 
     Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with
     gradient computation support for use in neural network training.
@@ -20,9 +20,9 @@ class PolynomialFeatures(torch.nn.Module):
         Maximum degree of polynomial features (must be >= 1).
     interaction_only : bool, optional
         If True, only include interaction features (products of distinct
-        features), not powers, by default ``False``.
+        features), not powers. Default is ``False``.
     include_bias : bool, optional
-        If True, include a bias column of ones, by default ``True``.
+        If True, include a bias column of ones. Default is ``True``.
 
     Raises
     ------
@@ -31,44 +31,48 @@ class PolynomialFeatures(torch.nn.Module):
 
     Notes
     -----
-    **fit**
+    **Class Methods:**
 
-    - ``X`` : torch.Tensor
-      Input tensor of shape ``(n_samples, n_features_in)``. Computes and stores
-      the number of input features and output features based on the polynomial
-      degree and settings.
-    - Returns ``self`` for method chaining.
+    **fit(X):**
 
-    **transform**
+    - Computes and stores the number of input features and output features based on the polynomial degree and settings.
+    - Parameters:
+        - X : ``Float[torch.Tensor, "n_samples n_features_in"]``. Input tensor.
+    - Returns:
+        - self. For method chaining.
 
-    - ``x`` : torch.Tensor
-      Input tensor of shape ``(n_samples, n_features_in)``.
-    - Returns transformed tensor of shape ``(n_samples, n_output_features_)``.
+    **transform(x):**
 
-    **fit_transform**
+    - Transform data to polynomial features.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "n_samples n_features_in"]``. Input tensor.
+    - Returns:
+        - ``Float[torch.Tensor, "n_samples n_output_features_"]``. Transformed tensor.
 
-    - ``X`` : torch.Tensor
-      Input tensor of shape ``(n_samples, n_features_in)``.
+    **fit_transform(X):**
+
     - Convenience method that calls ``fit()`` followed by ``transform()``.
-    - Returns transformed tensor of shape ``(n_samples, n_output_features_)``.
+    - Parameters:
+        - X : ``Float[torch.Tensor, "n_samples n_features_in"]``. Input tensor.
+    - Returns:
+        - ``Float[torch.Tensor, "n_samples n_output_features_"]``. Transformed tensor.
 
-    **get_feature_names_out**
+    **get_feature_names_out():**
 
-    - Must be called after ``fit()`` to access the number of input features.
-    - Returns np.ndarray of feature name strings (dtype=object), e.g.
-      ``["1", "x0", "x1", "x0^2", "x0 x1", "x1^2"]``.
+    - Must be called after ``fit()`` to access the number of input features. Returns feature name strings.
+    - Returns:
+        - list[str]. Feature names, e.g. ``["1", "x0", "x1", "x0^2", "x0 x1", "x1^2"]``.
 
-    **_combo_to_dict**
+    **_combo_to_dict(combo):**
 
-    - ``combo`` : tuple
-      Tuple of feature indices representing a polynomial term.
-    - Helper for ``get_feature_names_out()``. Counts occurrences of each feature
-      index to determine its power. Example: ``(0, 0, 1, 3)`` -> ``{0: 2, 1: 1, 3: 1}``
-      (x0^2 * x1 * x3).
-    - Returns dict mapping feature indices to their powers.
+    - Helper for ``get_feature_names_out()``. Counts occurrences of each feature index to determine its power. Example: ``(0, 0, 1, 3)`` -> ``{0: 2, 1: 1, 3: 1}`` (x0^2 * x1 * x3).
+    - Parameters:
+        - combo : tuple of int. Tuple of feature indices representing a polynomial term.
+    - Returns:
+        - dict[int, int]. Mapping of feature indices to their powers.
     """
 
-    def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True):
+    def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True) -> None:
         """Initialize polynomial features."""
         super(PolynomialFeatures, self).__init__()
 
@@ -137,7 +141,7 @@ class PolynomialFeatures(torch.nn.Module):
 
         return output
 
-    def fit(self, X: Float[torch.Tensor, "n_samples n_features_in"]):
+    def fit(self, X: Float[torch.Tensor, "n_samples n_features_in"]) -> "PolynomialFeatures":
         """Fit the polynomial features transformer to the data."""
         self.n_feature_in = X.shape[-1]
 
