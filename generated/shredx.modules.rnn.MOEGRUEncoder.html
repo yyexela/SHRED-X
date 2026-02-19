@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx.utils.pytorch_polynomial_features &#8212; SHRED-X Documentation</title>
+    <title>shredx.modules.rnn.MOEGRUEncoder &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.utils.pytorch_polynomial_features';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.rnn.MOEGRUEncoder';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.utils.pytorch_polynomial_features.PolynomialFeatures" href="shredx.utils.pytorch_polynomial_features.PolynomialFeatures.html" />
-    <link rel="prev" title="shredx.utils" href="shredx.utils.html" />
+    <link rel="next" title="shredx.modules.rnn.MOELSTMEncoder" href="shredx.modules.rnn.MOELSTMEncoder.html" />
+    <link rel="prev" title="shredx.modules.rnn.LSTMEncoder" href="shredx.modules.rnn.LSTMEncoder.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -273,7 +273,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.cnn.html">shredx.modules.cnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.cnn.CNNDecoder.html">shredx.modules.cnn.CNNDecoder</a></li>
 </ul>
@@ -288,10 +288,10 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin.html">shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.GRUEncoder.html">shredx.modules.rnn.GRUEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOEGRUEncoder.html">shredx.modules.rnn.MOEGRUEncoder</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.modules.rnn.MOEGRUEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOELSTMEncoder.html">shredx.modules.rnn.MOELSTMEncoder</a></li>
 </ul>
 </details></li>
@@ -301,8 +301,8 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">shredx.utils.pytorch_polynomial_features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.html">shredx.utils.pytorch_polynomial_features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.PolynomialFeatures.html">shredx.utils.pytorch_polynomial_features.PolynomialFeatures</a></li>
 </ul>
 </details></li>
@@ -362,9 +362,12 @@
     <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
     
     
-    <li class="breadcrumb-item"><a href="shredx.utils.html" class="nav-link">shredx.utils</a></li>
+    <li class="breadcrumb-item"><a href="shredx.modules.html" class="nav-link">shredx.modules</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.utils.pytorch_polynomial_features</span></li>
+    
+    <li class="breadcrumb-item"><a href="shredx.modules.rnn.html" class="nav-link">shredx.modules.rnn</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.modules.rnn.MOEGRUEncoder</span></li>
   </ul>
 </nav>
 </div>
@@ -381,19 +384,71 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-shredx.utils.pytorch_polynomial_features">
-<span id="shredx-utils-pytorch-polynomial-features"></span><h1>shredx.utils.pytorch_polynomial_features<a class="headerlink" href="#module-shredx.utils.pytorch_polynomial_features" title="Link to this heading">#</a></h1>
-<p>PyTorch implementation of polynomial feature generation.
-Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with gradient support.</p>
-<p class="rubric">Classes</p>
+  <section id="shredx-modules-rnn-moegruencoder">
+<h1>shredx.modules.rnn.MOEGRUEncoder<a class="headerlink" href="#shredx-modules-rnn-moegruencoder" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="shredx.modules.rnn.MOEGRUEncoder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">shredx.modules.rnn.</span></span><span class="sig-name descname"><span class="pre">MOEGRUEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_experts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_symmetry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shredx.modules.rnn.MOEGRUEncoder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>, <a class="reference internal" href="shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin.html#shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin" title="shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MOE_SINDy_Layer_Helpers_Mixin</span></code></a></p>
+<p>Mixture of Experts GRU with SINDy layer forecasting.</p>
+<p>Combines a GRU encoder with multiple SINDy expert layers for long-horizon
+forecasting. Expert outputs are combined via learned weighted averaging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>input_size</strong><span class="classifier">int</span></dt><dd><p>Input feature dimension.</p>
+</dd>
+<dt><strong>hidden_size</strong><span class="classifier">int</span></dt><dd><p>Hidden state dimension for GRU and experts.</p>
+</dd>
+<dt><strong>n_experts</strong><span class="classifier">int</span></dt><dd><p>Number of SINDy expert layers.</p>
+</dd>
+<dt><strong>forecast_length</strong><span class="classifier">int</span></dt><dd><p>Number of timesteps to forecast.</p>
+</dd>
+<dt><strong>strict_symmetry</strong><span class="classifier">bool</span></dt><dd><p>If True, enforce symmetric SINDy coefficients.</p>
+</dd>
+<dt><strong>num_layers</strong><span class="classifier">int</span></dt><dd><p>Number of GRU layers.</p>
+</dd>
+<dt><strong>dropout</strong><span class="classifier">float</span></dt><dd><p>Dropout probability for expert weighting.</p>
+</dd>
+<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device on which to place the module. Default is <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments (ignored).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.utils.pytorch_polynomial_features.PolynomialFeatures.html#shredx.utils.pytorch_polynomial_features.PolynomialFeatures" title="shredx.utils.pytorch_polynomial_features.PolynomialFeatures"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code></a>(degree[, ...])</p></td>
-<td><p>PyTorch implementation of polynomial features that supports backpropagation.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code>(x)</p></td>
+<td><p>Forward pass through the MOE-GRU model.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p class="rubric">Notes</p>
+<p><strong>Class Methods:</strong></p>
+<p><strong>forward(x):</strong></p>
+<ul class="simple">
+<li><p>Processes input through the GRU, then passes the final hidden state through all SINDy experts and combines their outputs.</p></li>
+<li><dl class="simple">
+<dt>Parameters:</dt><dd><ul>
+<li><p>x : <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;batch</span> <span class="pre">sequence</span> <span class="pre">input_size&quot;]</span></code>. Input tensor.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Returns:</dt><dd><ul>
+<li><p>tuple. Tuple containing the final output tensor of shape
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">hidden_size)</span></code> and <code class="docutils literal notranslate"><span class="pre">None</span></code> for no auxiliary losses.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
 </section>
 
 
@@ -407,20 +462,20 @@ Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with gradient s
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="shredx.utils.html"
+       href="shredx.modules.rnn.LSTMEncoder.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">shredx.utils</p>
+        <p class="prev-next-title">shredx.modules.rnn.LSTMEncoder</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.utils.pytorch_polynomial_features.PolynomialFeatures.html"
+       href="shredx.modules.rnn.MOELSTMEncoder.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.utils.pytorch_polynomial_features.PolynomialFeatures</p>
+        <p class="prev-next-title">shredx.modules.rnn.MOELSTMEncoder</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -436,10 +491,22 @@ Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with gradient s
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.modules.rnn.MOEGRUEncoder"><code class="docutils literal notranslate"><span class="pre">MOEGRUEncoder</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.utils.pytorch_polynomial_features.rst.txt"
+      <li><a href="../_sources/generated/shredx.modules.rnn.MOEGRUEncoder.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

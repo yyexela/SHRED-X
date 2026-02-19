@@ -18,5 +18,6 @@ shredx.modules
 
    cnn
    mlp
+   moe_mixin
    rnn
    sindy_layer

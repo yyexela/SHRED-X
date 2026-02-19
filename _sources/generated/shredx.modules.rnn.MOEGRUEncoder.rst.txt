@@ -1,0 +1,10 @@
+shredx.modules.rnn.MOEGRUEncoder
+================================
+
+.. currentmodule:: shredx.modules.rnn
+
+.. autoclass:: MOEGRUEncoder
+
+    
+
+    

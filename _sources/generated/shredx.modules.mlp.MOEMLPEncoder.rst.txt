@@ -1,0 +1,10 @@
+shredx.modules.mlp.MOEMLPEncoder
+================================
+
+.. currentmodule:: shredx.modules.mlp
+
+.. autoclass:: MOEMLPEncoder
+
+    
+
+    

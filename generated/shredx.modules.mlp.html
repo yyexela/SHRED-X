@@ -281,11 +281,18 @@
 <li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">shredx.modules.mlp</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MLPDecoder.html">shredx.modules.mlp.MLPDecoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MLPEncoder.html">shredx.modules.mlp.MLPEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MOEMLPEncoder.html">shredx.modules.mlp.MOEMLPEncoder</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.moe_mixin.html">shredx.modules.moe_mixin</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin.html">shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.GRUEncoder.html">shredx.modules.rnn.GRUEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOEGRUEncoder.html">shredx.modules.rnn.MOEGRUEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOELSTMEncoder.html">shredx.modules.rnn.MOELSTMEncoder</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.sindy_layer.html">shredx.modules.sindy_layer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -376,7 +383,7 @@
                   
   <section id="module-shredx.modules.mlp">
 <span id="shredx-modules-mlp"></span><h1>shredx.modules.mlp<a class="headerlink" href="#module-shredx.modules.mlp" title="Link to this heading">#</a></h1>
-<p>Multi-layer perceptron (MLP) encoders for sequence modeling.</p>
+<p>Multi-layer perceptron (MLP) encoders and decoders for sequence modeling. Also implements MOE-MLP encoder.</p>
 <p class="rubric">Classes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
@@ -385,6 +392,9 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="shredx.modules.mlp.MLPEncoder.html#shredx.modules.mlp.MLPEncoder" title="shredx.modules.mlp.MLPEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MLPEncoder</span></code></a>(input_size, hidden_size, ...[, ...])</p></td>
 <td><p>Multi-layer perceptron (MLP) encoder.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="shredx.modules.mlp.MOEMLPEncoder.html#shredx.modules.mlp.MOEMLPEncoder" title="shredx.modules.mlp.MOEMLPEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MOEMLPEncoder</span></code></a>(input_size, hidden_size, ...)</p></td>
+<td><p>Multi-Layer Perceptron (MLP) with SINDy layer forecasting.</p></td>
 </tr>
 </tbody>
 </table>

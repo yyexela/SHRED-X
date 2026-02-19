@@ -16,4 +16,6 @@ shredx.modules.rnn
    
       GRUEncoder
       LSTMEncoder
+      MOEGRUEncoder
+      MOELSTMEncoder
 

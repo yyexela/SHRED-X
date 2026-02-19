@@ -1,0 +1,18 @@
+shredx.modules.moe\_mixin
+=========================
+
+.. automodule:: shredx.modules.moe_mixin
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      MOE_SINDy_Layer_Helpers_Mixin
+

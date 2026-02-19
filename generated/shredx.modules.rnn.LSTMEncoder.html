@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.rnn.LSTMEncoder';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.modules.sindy_layer" href="shredx.modules.sindy_layer.html" />
+    <link rel="next" title="shredx.modules.rnn.MOEGRUEncoder" href="shredx.modules.rnn.MOEGRUEncoder.html" />
     <link rel="prev" title="shredx.modules.rnn.GRUEncoder" href="shredx.modules.rnn.GRUEncoder.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -281,11 +281,18 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.mlp.html">shredx.modules.mlp</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MLPDecoder.html">shredx.modules.mlp.MLPDecoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MLPEncoder.html">shredx.modules.mlp.MLPEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.mlp.MOEMLPEncoder.html">shredx.modules.mlp.MOEMLPEncoder</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.moe_mixin.html">shredx.modules.moe_mixin</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin.html">shredx.modules.moe_mixin.MOE_SINDy_Layer_Helpers_Mixin</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.GRUEncoder.html">shredx.modules.rnn.GRUEncoder</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.modules.rnn.LSTMEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOEGRUEncoder.html">shredx.modules.rnn.MOEGRUEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOELSTMEncoder.html">shredx.modules.rnn.MOELSTMEncoder</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.sindy_layer.html">shredx.modules.sindy_layer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -397,7 +404,7 @@ compatibility with encoder–decoder architectures.</p>
 </dd>
 <dt><strong>dropout</strong><span class="classifier">float</span></dt><dd><p>Dropout probability applied to the outputs.</p>
 </dd>
-<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device on which to place the module, by default <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
+<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device on which to place the module. Default is <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
 </dd>
 <dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments passed for compatibility but ignored.</p>
 </dd>
@@ -414,16 +421,25 @@ compatibility with encoder–decoder architectures.</p>
 </table>
 </div>
 <p class="rubric">Notes</p>
-<p><strong>Inputs</strong></p>
+<p><strong>Class Methods:</strong></p>
+<p><strong>forward(x):</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> : Tensor
-Input tensor of shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">sequence_length,</span> <span class="pre">input_size)</span></code>.</p></li>
+<li><p>Applies the LSTM encoder to an input batch.</p></li>
+<li><dl class="simple">
+<dt>Parameters:</dt><dd><ul>
+<li><p>x : <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;batch</span> <span class="pre">sequence</span> <span class="pre">input_size&quot;]</span></code>. Input tensor.</p></li>
 </ul>
-<p><strong>Outputs</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">output</span></code> : Tuple
-Tuple containing the final
-output tensor of shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">hidden_size)</span></code> and None for no auxiliary losses.</p></li>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Returns:</dt><dd><ul>
+<li><p>tuple. Tuple containing the final output tensor of shape
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">hidden_size)</span></code> and <code class="docutils literal notranslate"><span class="pre">None</span></code> for no auxiliary losses.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </dd></dl>
 
@@ -449,11 +465,11 @@ output tensor of shape <code class="docutils literal notranslate"><span class="p
       </div>
     </a>
     <a class="right-next"
-       href="shredx.modules.sindy_layer.html"
+       href="shredx.modules.rnn.MOEGRUEncoder.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.modules.sindy_layer</p>
+        <p class="prev-next-title">shredx.modules.rnn.MOEGRUEncoder</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -1,0 +1,10 @@
+shredx.modules.rnn.MOELSTMEncoder
+=================================
+
+.. currentmodule:: shredx.modules.rnn
+
+.. autoclass:: MOELSTMEncoder
+
+    
+
+    
