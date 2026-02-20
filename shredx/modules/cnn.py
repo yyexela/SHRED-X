@@ -95,7 +95,7 @@ class CNNDecoder(nn.Module):
         aux_losses = x[1]
         x_in = x[0]
 
-        batch_size, forecast_length, sequence_length, hidden_dim = x_in.shape
+        _batch_size, forecast_length, sequence_length, _hidden_dim = x_in.shape
         x_in = einops.rearrange(x_in, "b f s d -> b d (f s)", f=forecast_length, s=sequence_length)
         out = self.model(x_in)
         out = self.dropout(out)  # want: batch forecast seq_len (rows cols dim)

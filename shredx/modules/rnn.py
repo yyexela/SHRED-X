@@ -152,7 +152,7 @@ class LSTMEncoder(nn.Module):
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
         """Apply the LSTM encoder to an input batch."""
-        out, (h_out, c_out) = self.lstm(x)
+        out, (h_out, _c_out) = self.lstm(x)
 
         out = self.dropout(out)
         h_out = self.dropout(h_out)
@@ -255,7 +255,7 @@ class MOEGRUEncoder(nn.Module, MOESINDyLayerHelpersMixin):
     ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-GRU model."""
         # Normal GRU forward
-        out, h_out = self.gru(x)
+        _out, h_out = self.gru(x)
 
         # SINDy forward all experts
         sindy_outputs = [expert(h_out[-1]) for expert in self.experts]
@@ -368,7 +368,7 @@ class MOELSTMEncoder(nn.Module, MOESINDyLayerHelpersMixin):
     ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-LSTM model."""
         # Normal LSTM forward
-        out, (h_out, c_out) = self.lstm(x)
+        _out, (h_out, _c_out) = self.lstm(x)
 
         # SINDy forward all experts
         sindy_outputs = [expert(h_out[-1]) for expert in self.experts]
@@ -529,7 +529,7 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
     ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
         """Apply the SINDy Loss LSTM encoder to an input batch."""
         # Initialize hidden and cell
-        out, (h_out, c_out) = self.lstm(x)
+        out, (h_out, _c_out) = self.lstm(x)
         h_out = h_out[-1:]
 
         sindy_loss = self.compute_sindy_loss(out)

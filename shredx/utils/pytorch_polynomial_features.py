@@ -93,8 +93,7 @@ class PolynomialFeatures(torch.nn.Module):
         # Create combinations
         output = []
         for d in range(1, self.degree + 1):
-            for combo in comb_f(range(self.n_feature_in), d):
-                output.append(torch.prod(x[:, combo], dim=1))
+            output.extend(torch.prod(x[:, combo], dim=1) for combo in comb_f(range(self.n_feature_in), d))
         output = torch.stack(output, dim=1)
 
         # Add bias
@@ -147,7 +146,7 @@ class PolynomialFeatures(torch.nn.Module):
         self.n_feature_in = X.shape[-1]
 
         self.n_output_features_ = int(
-            sum([comb(self.n_feature_in, d, repetition=(not self.interaction_only)) for d in range(1, self.degree + 1)])
+            sum(comb(self.n_feature_in, d, repetition=(not self.interaction_only)) for d in range(1, self.degree + 1))
         )
 
         if self.include_bias:
