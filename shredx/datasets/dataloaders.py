@@ -7,8 +7,8 @@ lists of input and output tensors.
 import bisect
 
 import torch
-from torch.utils.data import Dataset
 from jaxtyping import Float
+from torch.utils.data import Dataset
 
 
 class TimeSeriesDataset(Dataset):

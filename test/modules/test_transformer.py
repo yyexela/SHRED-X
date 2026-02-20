@@ -1,14 +1,15 @@
 """Verify the RNN modules are working correctly."""
 
-import torch
 import pytest
-import torch.nn as nn
+import torch
+from torch import nn
+
 from shredx.modules.transformer import (
-    TransformerEncoder,
+    MultiHeadSINDyAttention,
+    SINDyAttentionSINDyLossTransformerEncoder,
     SINDyAttentionTransformerEncoder,
     SINDyLossTransformerEncoder,
-    SINDyAttentionSINDyLossTransformerEncoder,
-    MultiHeadSINDyAttention,
+    TransformerEncoder,
 )
 
 

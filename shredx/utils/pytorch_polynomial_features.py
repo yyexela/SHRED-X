@@ -2,10 +2,11 @@
 Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with gradient support.
 """
 
+from itertools import combinations, combinations_with_replacement
+
 import torch
 from jaxtyping import Float
 from scipy.special import comb
-from itertools import combinations_with_replacement, combinations
 
 
 class PolynomialFeatures(torch.nn.Module):
@@ -74,7 +75,7 @@ class PolynomialFeatures(torch.nn.Module):
 
     def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True) -> None:
         """Initialize polynomial features."""
-        super(PolynomialFeatures, self).__init__()
+        super().__init__()
 
         if degree < 1:
             raise ValueError("Degree must be at least 1")

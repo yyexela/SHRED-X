@@ -1,8 +1,9 @@
 """Verify the MLP modules are working correctly."""
 
-import torch
 import pytest
-from shredx.modules.mlp import MLPEncoder, MLPDecoder, MOEMLPEncoder, SINDyLossMLPEncoder
+import torch
+
+from shredx.modules.mlp import MLPDecoder, MLPEncoder, MOEMLPEncoder, SINDyLossMLPEncoder
 
 
 @pytest.mark.parametrize("hidden_size", [3, 10])

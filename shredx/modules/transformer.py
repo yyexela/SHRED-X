@@ -5,14 +5,16 @@ with encoder–decoder architectures.
 """
 
 import copy
-import torch
+from typing import cast
+
 import einops
-import torch.nn as nn
-from jaxtyping import Float
-from typing import Optional, Tuple, List, cast
+import torch
 import torch.nn.functional as F
-from shredx.modules.sindy_layer import SINDyLayer
+from jaxtyping import Float
+from torch import nn
+
 from shredx.modules.positional_encoding import PositionalEncoding
+from shredx.modules.sindy_layer import SINDyLayer
 from shredx.modules.sindy_loss_mixin import SINDyLossMixin
 
 
@@ -59,7 +61,7 @@ class MultiHeadAttention(nn.Module):
         n_heads: int,
         dropout: float,
         bias: bool,
-        dtype: Optional[torch.dtype],
+        dtype: torch.dtype | None,
         device: str = "cpu",
     ) -> None:
         """Initialize ``MultiHeadAttention``."""
@@ -159,7 +161,7 @@ class MultiHeadSINDyAttention(nn.Module):
         dropout: float,
         strict_symmetry: bool,
         bias: bool,
-        dtype: Optional[torch.dtype],
+        dtype: torch.dtype | None,
         device="cpu",
     ) -> None:
         """Initialize ``MultiHeadSINDyAttention``."""
@@ -299,7 +301,7 @@ class TransformerEncoderLayer(nn.Module):
         layer_norm_eps: float,
         norm_first: bool,
         bias: bool,
-        dtype: Optional[torch.dtype],
+        dtype: torch.dtype | None,
         device: str = "cpu",
     ) -> None:
         """Initialize ``TransformerEncoderLayer``."""
@@ -390,8 +392,8 @@ class TransformerEncoderModule(nn.Module):
         self,
         encoder_layer: nn.Module,
         num_layers: int,
-        norm: Optional[nn.Module],
-        dtype: Optional[torch.dtype],
+        norm: nn.Module | None,
+        dtype: torch.dtype | None,
         device: str = "cpu",
     ) -> None:
         """Initialize ``TransformerEncoderModule``."""
@@ -502,7 +504,7 @@ class TransformerEncoder(nn.Module):
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal: bool = True,
-    ) -> Tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], None]:
         """Forward pass through the transformer encoder."""
         # Embed input
         x_embedded = self.input_embedding(src)
@@ -597,7 +599,7 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal: bool = True,
-    ) -> Tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], Float[torch.Tensor, ""]]:
         """Forward pass through the transformer encoder with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)
@@ -722,7 +724,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
                 print(output_str[:-3])
             print()
 
-    def get_sindy_layer_coefficients_eigenvalues(self) -> List[Float[torch.Tensor, "hidden_size"]]:  # noqa: F821
+    def get_sindy_layer_coefficients_eigenvalues(self) -> list[Float[torch.Tensor, "hidden_size"]]:  # noqa: F821
         """Get eigenvalues of SINDy coefficient matrices for all attention heads."""
         with torch.no_grad():
             eigvs_l = []
@@ -781,7 +783,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal=True,
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], None]:
         """Forward pass through the SINDy attention transformer."""
         # Embed input
         x_embedded = self.input_embedding(src)
@@ -882,7 +884,7 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal=True,
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], Float[torch.Tensor, ""]]:
         """Forward pass through the SINDy attention transformer with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)

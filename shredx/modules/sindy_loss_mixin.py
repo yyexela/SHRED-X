@@ -2,13 +2,15 @@
 SINDy Loss mixin module for neural network regularization.
 """
 
-import torch
+from typing import cast
+
 import einops
-import torch.nn as nn
-from torchdiffeq import odeint
-from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
+import torch
 from jaxtyping import Float
-from typing import Optional, cast
+from torch import nn
+from torchdiffeq import odeint
+
+from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 
 
 class SINDyLossMixin(nn.Module):
@@ -137,7 +139,7 @@ class SINDyLossMixin(nn.Module):
 
         return total_loss
 
-    def thresholding(self, threshold: Optional[float] = None) -> None:
+    def thresholding(self, threshold: float | None = None) -> None:
         """Apply thresholding to SINDy coefficients to enforce sparsity."""
         if threshold is None:
             threshold = self.sindy_loss_threshold

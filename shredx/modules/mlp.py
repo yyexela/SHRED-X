@@ -1,12 +1,12 @@
 """Multi-layer perceptron (MLP) encoders and decoders for sequence modeling. Also implements MOE-MLP encoder."""
 
 import math
+
 import einops
 import torch
-import torch.nn as nn
 from jaxtyping import Float
-from typing import Tuple
-from typing import List
+from torch import nn
+
 from shredx.modules.moe_mixin import MOESINDyLayerHelpersMixin
 from shredx.modules.sindy_layer import SINDyLayer
 from shredx.modules.sindy_loss_mixin import SINDyLossMixin
@@ -55,7 +55,7 @@ class MLPEncoder(nn.Module):
         device: str = "cpu",
     ) -> None:
         """Initialize ``MLPEncoder``."""
-        super(MLPEncoder, self).__init__()
+        super().__init__()
         # Class variables
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -79,7 +79,7 @@ class MLPEncoder(nn.Module):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
         """Apply the MLP encoder to an input batch."""
         out = self.model(x)
         out = self.dropout(out)
@@ -136,7 +136,7 @@ class MLPDecoder(nn.Module):
         device: str = "cpu",
     ) -> None:
         """Initialize the MLP decoder."""
-        super(MLPDecoder, self).__init__()
+        super().__init__()
         # Class variables
         self.in_dim = in_dim
         self.out_dim = out_dim
@@ -171,10 +171,10 @@ class MLPDecoder(nn.Module):
 
     def forward(
         self,
-        x: Tuple[
-            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], List[torch.FloatTensor] | None
+        x: tuple[
+            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], list[torch.FloatTensor] | None
         ],
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], List[torch.FloatTensor] | None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], list[torch.FloatTensor] | None]:
         """Apply the MLP decoder to an input batch."""
         aux_losses = x[1]
         x_in = x[0]
@@ -276,7 +276,7 @@ class MOEMLPEncoder(nn.Module, MOESINDyLayerHelpersMixin):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-MLP model."""
         out = self.mlp(x)
 
@@ -357,7 +357,7 @@ class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
         """Apply the SINDy Loss MLP encoder to an input batch."""
         out = self.model(x)
 

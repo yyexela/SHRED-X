@@ -6,9 +6,9 @@ encoder–decoder architecture. Also implements MOE-GRU and MOE-LSTM encoders.
 
 import einops
 import torch
-import torch.nn as nn
 from jaxtyping import Float
-from typing import Tuple
+from torch import nn
+
 from shredx.modules.moe_mixin import MOESINDyLayerHelpersMixin
 from shredx.modules.sindy_layer import SINDyLayer
 from shredx.modules.sindy_loss_mixin import SINDyLossMixin
@@ -75,7 +75,7 @@ class GRUEncoder(nn.Module):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
         """Apply the GRU encoder to an input batch."""
         out, h_out = self.gru(x)
 
@@ -150,7 +150,7 @@ class LSTMEncoder(nn.Module):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
         """Apply the LSTM encoder to an input batch."""
         out, (h_out, c_out) = self.lstm(x)
 
@@ -252,7 +252,7 @@ class MOEGRUEncoder(nn.Module, MOESINDyLayerHelpersMixin):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-GRU model."""
         # Normal GRU forward
         out, h_out = self.gru(x)
@@ -365,7 +365,7 @@ class MOELSTMEncoder(nn.Module, MOESINDyLayerHelpersMixin):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-LSTM model."""
         # Normal LSTM forward
         out, (h_out, c_out) = self.lstm(x)
@@ -447,7 +447,7 @@ class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
         """Apply the SINDy Loss GRU encoder to an input batch."""
         out, h_out = self.gru(x)
         h_out = h_out[-1:]
@@ -526,7 +526,7 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
         """Apply the SINDy Loss LSTM encoder to an input batch."""
         # Initialize hidden and cell
         out, (h_out, c_out) = self.lstm(x)

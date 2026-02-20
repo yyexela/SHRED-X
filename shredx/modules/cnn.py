@@ -1,10 +1,9 @@
-import einops
-import torch.nn as nn
 import math
+
+import einops
 import torch
 from jaxtyping import Float
-from typing import Tuple
-from typing import List
+from torch import nn
 
 
 class CNNDecoder(nn.Module):
@@ -88,10 +87,10 @@ class CNNDecoder(nn.Module):
 
     def forward(
         self,
-        x: Tuple[
-            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], List[torch.FloatTensor] | None
+        x: tuple[
+            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], list[torch.FloatTensor] | None
         ],
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], List[torch.FloatTensor] | None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], list[torch.FloatTensor] | None]:
         """Apply the CNN decoder to an input batch."""
         aux_losses = x[1]
         x_in = x[0]

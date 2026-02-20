@@ -1,7 +1,8 @@
 """Verify the SINDy layer module is working correctly."""
 
-import torch
 import pytest
+import torch
+
 from shredx.modules.sindy_layer import SINDyLayer
 
 

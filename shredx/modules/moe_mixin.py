@@ -2,10 +2,11 @@
 Mixture of Experts mixin module for SINDy layer forecasting.
 """
 
+from typing import cast
+
 import torch
 from jaxtyping import Float
-import torch.nn as nn
-from typing import cast
+from torch import nn
 
 from shredx.modules.sindy_layer import SINDyLayer
 

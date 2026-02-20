@@ -1,9 +1,10 @@
 """Sinusoidal positional encoding for transformer models."""
 
 import math
-import torch
-import torch.nn as nn
 from typing import cast
+
+import torch
+from torch import nn
 
 
 class PositionalEncoding(nn.Module):
