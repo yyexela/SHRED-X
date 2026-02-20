@@ -9,8 +9,9 @@ import torch
 import torch.nn as nn
 from jaxtyping import Float
 from typing import Tuple
-from shredx.modules.moe_mixin import MOE_SINDy_Layer_Helpers_Mixin
-from shredx.modules.sindy_layer import SindyLayer
+from shredx.modules.moe_mixin import MOESINDyLayerHelpersMixin
+from shredx.modules.sindy_layer import SINDyLayer
+from shredx.modules.sindy_loss_mixin import SINDyLossMixin
 
 
 class GRUEncoder(nn.Module):
@@ -163,7 +164,7 @@ class LSTMEncoder(nn.Module):
         return (final_output, None)
 
 
-class MOEGRUEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
+class MOEGRUEncoder(nn.Module, MOESINDyLayerHelpersMixin):
     r"""Mixture of Experts GRU with SINDy layer forecasting.
 
     Combines a GRU encoder with multiple SINDy expert layers for long-horizon
@@ -201,7 +202,7 @@ class MOEGRUEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
         - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+          ``(batch_size, forecast_length, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -239,7 +240,7 @@ class MOEGRUEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         self.linear_combination = nn.Parameter(torch.ones(self.n_experts) / self.n_experts)
         self.experts = nn.ModuleList(
             [
-                SindyLayer(
+                SINDyLayer(
                     hidden_size=self.hidden_size,
                     forecast_length=self.forecast_length,
                     device=self.device,
@@ -270,7 +271,7 @@ class MOEGRUEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         return (combined, None)
 
 
-class MOELSTMEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
+class MOELSTMEncoder(nn.Module, MOESINDyLayerHelpersMixin):
     r"""Mixture of Experts LSTM with SINDy layer forecasting.
 
     Combines an LSTM encoder with multiple SINDy expert layers for long-horizon
@@ -311,11 +312,10 @@ class MOELSTMEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
 
     - Processes input through the LSTM, then passes the final hidden state through all SINDy experts and combines their outputs.
     - Parameters:
-        - x : torch.Tensor. Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
-        - dict. Keys: ``"sequence_output"`` (LSTM output, shape ``(batch_size, sequence_length, hidden_size)``),
-          ``"final_hidden_state"`` (shape ``(num_layers, batch_size, hidden_size)``),
-          ``"output"`` (combined expert forecasts, shape ``(batch_size, forecast_length, 1, hidden_size)``).
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, forecast_length, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -353,7 +353,7 @@ class MOELSTMEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         self.linear_combination = nn.Parameter(torch.ones(self.n_experts) / self.n_experts)
         self.experts = nn.ModuleList(
             [
-                SindyLayer(
+                SINDyLayer(
                     hidden_size=self.hidden_size,
                     forecast_length=self.forecast_length,
                     device=self.device,
@@ -382,3 +382,161 @@ class MOELSTMEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         combined = torch.einsum("ebfsd,e->bfsd", sindy_outputs, weights)
 
         return (combined, None)
+
+
+class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
+    r"""GRU encoder with SINDy loss regularization.
+
+    Combines a standard GRU encoder with SINDy-based regularization that
+    encourages the hidden state dynamics to follow a sparse polynomial ODE.
+
+    Parameters
+    ----------
+    input_size : int
+        Input feature dimension.
+    hidden_size : int
+        Hidden state dimension.
+    num_layers : int
+        Number of stacked GRU layers.
+    dropout : float
+        Dropout probability applied to the outputs.
+    dt : float
+        Time step for SINDy derivatives.
+    sindy_loss_threshold : float
+        Threshold for coefficient sparsification.
+    device : str, optional
+        Device on which to place the module. Default is ``"cpu"``.
+    **kwargs
+        Additional keyword arguments passed for compatibility but ignored.
+
+    Notes
+    -----
+    **Class Methods:**
+
+    **forward(x):**
+
+    - Processes input through the GRU and computes SINDy loss based on how well hidden state transitions follow learned dynamics.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+    """
+
+    def __init__(
+        self,
+        input_size: int,
+        hidden_size: int,
+        num_layers: int,
+        dropout: float,
+        dt: float,
+        sindy_loss_threshold: float,
+        device: str = "cpu",
+        **kwargs,
+    ):
+        """Initialize the SINDy Loss GRU."""
+        super().__init__(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            dropout=dropout,
+            device=device,
+            dt=dt,
+            sindy_loss_threshold=sindy_loss_threshold,
+        )
+
+    def forward(  # pyrefly: ignore[bad-override]
+        self, x: Float[torch.Tensor, "batch sequence input_size"]
+    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+        """Apply the SINDy Loss GRU encoder to an input batch."""
+        out, h_out = self.gru(x)
+        h_out = h_out[-1:]
+
+        sindy_loss = self.compute_sindy_loss(out)
+
+        out = self.dropout(out)
+        h_out = self.dropout(h_out)
+        out = einops.rearrange(out, "b s d -> b 1 s d")
+        h_out = einops.rearrange(h_out, "s b d -> b 1 s d")
+
+        return (h_out, sindy_loss)
+
+
+class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
+    r"""LSTM encoder with SINDy loss regularization.
+
+    Combines a standard LSTM encoder with SINDy-based regularization that
+    encourages the hidden state dynamics to follow a sparse polynomial ODE.
+
+    Parameters
+    ----------
+    input_size : int
+        Input feature dimension.
+    hidden_size : int
+        Hidden state dimension.
+    num_layers : int
+        Number of stacked LSTM layers.
+    dropout : float
+        Dropout probability applied to the outputs.
+    dt : float
+        Time step for SINDy derivatives.
+    sindy_loss_threshold : float
+        Threshold for coefficient sparsification.
+    device : str, optional
+        Device on which to place the module. Default is ``"cpu"``.
+    **kwargs
+        Additional keyword arguments passed for compatibility but ignored.
+
+    Notes
+    -----
+    **Class Methods:**
+
+    **forward(x):**
+
+    - Processes input through the LSTM and computes SINDy loss based on how well hidden state transitions follow learned dynamics.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+    """
+
+    def __init__(
+        self,
+        input_size: int,
+        hidden_size: int,
+        num_layers: int,
+        dropout: float,
+        dt: float,
+        sindy_loss_threshold: float,
+        device: str = "cpu",
+        **kwargs,
+    ) -> None:
+        """Initialize the SINDy Loss LSTM."""
+
+        super().__init__(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            dropout=dropout,
+            device=device,
+            dt=dt,
+            sindy_loss_threshold=sindy_loss_threshold,
+        )
+
+    def forward(  # pyrefly: ignore[bad-override]
+        self, x: Float[torch.Tensor, "batch sequence input_size"]
+    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+        """Apply the SINDy Loss LSTM encoder to an input batch."""
+        # Initialize hidden and cell
+        out, (h_out, c_out) = self.lstm(x)
+        h_out = h_out[-1:]
+
+        sindy_loss = self.compute_sindy_loss(out)
+
+        out = self.dropout(out)
+        h_out = self.dropout(h_out)
+        out = einops.rearrange(out, "b s d -> b 1 s d")
+        h_out = einops.rearrange(h_out, "s b d -> b 1 s d")
+
+        return (h_out, sindy_loss)

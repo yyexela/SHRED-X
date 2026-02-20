@@ -12,7 +12,7 @@ from torchdiffeq import odeint
 from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 
 
-class SindyLayer(nn.Module):
+class SINDyLayer(nn.Module):
     r"""Differentiable SINDy layer for ODE-based forecasting.
 
     Learns sparse polynomial dynamics from data and uses ODE integration
