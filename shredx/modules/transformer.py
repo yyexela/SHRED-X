@@ -1,5 +1,7 @@
-"""
-Transformer encoders.
+"""Transformer encoders for sequence modeling.
+
+Implements standard and SINDy-augmented transformer encoders compatible
+with encoder–decoder architectures.
 """
 
 import copy
@@ -15,14 +17,37 @@ from shredx.modules.sindy_loss_mixin import SINDyLossMixin
 
 
 class MultiHeadAttention(nn.Module):
-    """
-    Standard multi-head attention mechanism.
+    r"""Standard multi-head attention mechanism.
 
     Implements scaled dot-product attention with multiple heads,
     supporting both same and different query/key/value dimensions.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    E_q : int
+        Size of embedding dimension for query.
+    E_k : int
+        Size of embedding dimension for key.
+    E_v : int
+        Size of embedding dimension for value.
+    E_total : int
+        Total embedding dimension of combined heads post input projection.
+        Each head has dimension ``E_total // n_heads``.
+    n_heads : int
+        Number of attention heads.
+    dropout : float
+        Dropout probability for attention weights.
+    bias : bool
+        Whether to add bias to input/output projections.
+    dtype : torch.dtype, optional
+        Data type for parameters.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
+
+    Raises
+    ------
+    ValueError
+        If ``E_total`` is not divisible by ``n_heads``.
     """
 
     def __init__(
@@ -37,24 +62,7 @@ class MultiHeadAttention(nn.Module):
         dtype: Optional[torch.dtype],
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the MultiHeadAttention module.
-
-        Args:
-            E_q (int): Size of embedding dimension for query
-            E_k (int): Size of embedding dimension for key
-            E_v (int): Size of embedding dimension for value
-            E_total (int): Total embedding dimension of combined heads post input projection.
-                Each head has dimension E_total // n_heads
-            n_heads (int): Number of attention heads
-            dropout (float): Dropout probability for attention weights
-            bias (bool): Whether to add bias to input/output projections
-            dtype (torch.dtype): Data type for parameters
-            device (str): Device to place the model on (default: "cpu")
-
-        Raises:
-            AssertionError: If E_total is not divisible by n_heads
-        """
+        """Initialize ``MultiHeadAttention``."""
         factory_kwargs = {"device": device, "dtype": dtype}
         super().__init__()
         self.n_heads = n_heads
@@ -74,22 +82,7 @@ class MultiHeadAttention(nn.Module):
         value: Float[torch.Tensor, "N L_kv E_v"],
         is_causal=True,
     ) -> Float[torch.Tensor, "N L_t E_q"]:
-        """
-        Forward pass; runs the following process:
-            1. Apply input projection
-            2. Split heads and prepare for SDPA
-            3. Run SDPA
-            4. Apply output projection
-
-        Args:
-            query (torch.Tensor): query of shape ``(N, L_q, E_qk)``
-            key (torch.Tensor): key of shape ``(N, L_kv, E_qk)``
-            value (torch.Tensor): value of shape ``(N, L_kv, E_v)``
-            is_causal (bool, optional): Whether to apply causal mask. Default: False
-
-        Returns:
-            attn_output (torch.Tensor): output of shape ``(N, L_t, E_q)``
-        """
+        """Apply input projection, split heads, run SDPA, and project output."""
         # Step 1. Apply input projection
         result = self.packed_proj(query)
         query, key, value = torch.chunk(result, 3, dim=-1)
@@ -117,15 +110,42 @@ class MultiHeadAttention(nn.Module):
 
 
 class MultiHeadSINDyAttention(nn.Module):
-    """
-    Multi-head attention with SINDy-based latent space rollout.
+    r"""Multi-head attention with SINDy-based latent space rollout.
 
     Replaces standard scaled dot-product attention output with ODE-based
     rollouts using learned SINDy dynamics. Each attention head has its
     own SINDy layer for independent dynamics learning.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    E_q : int
+        Size of embedding dimension for query.
+    E_k : int
+        Size of embedding dimension for key.
+    E_v : int
+        Size of embedding dimension for value.
+    E_total : int
+        Total embedding dimension of combined heads post input projection.
+        Each head has dimension ``E_total // n_heads``.
+    n_heads : int
+        Number of attention heads.
+    forecast_length : int
+        Number of future timesteps to predict via ODE rollout.
+    dropout : float
+        Dropout probability for attention weights.
+    strict_symmetry : bool
+        If True, enforce strict symmetry in SINDy coefficients.
+    bias : bool
+        Whether to add bias to input/output projections.
+    dtype : torch.dtype, optional
+        Data type for parameters.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
+
+    Raises
+    ------
+    ValueError
+        If ``E_total`` is not divisible by ``n_heads``.
     """
 
     def __init__(
@@ -142,26 +162,7 @@ class MultiHeadSINDyAttention(nn.Module):
         dtype: Optional[torch.dtype],
         device="cpu",
     ) -> None:
-        """
-        Initialize the MultiHeadSINDyAttention module.
-
-        Args:
-            E_q (int): Size of embedding dimension for query
-            E_k (int): Size of embedding dimension for key
-            E_v (int): Size of embedding dimension for value
-            E_total (int): Total embedding dimension of combined heads post input projection.
-                Each head has dimension E_total // n_heads
-            n_heads (int): Number of attention heads
-            forecast_length (int): Number of future timesteps to predict via ODE rollout
-            dropout (float): Dropout probability for attention weights
-            strict_symmetry (bool): Whether to enforce strict symmetry in SINDy coefficients
-            bias (bool): Whether to add bias to input/output projections
-            dtype (torch.dtype): Data type for parameters
-            device (str): Device to place the model on (default: "cpu")
-
-        Raises:
-            ValueError: If E_total is not divisible by n_heads
-        """
+        """Initialize ``MultiHeadSINDyAttention``."""
         factory_kwargs = {"device": device, "dtype": dtype}
         super().__init__()
 
@@ -203,22 +204,7 @@ class MultiHeadSINDyAttention(nn.Module):
         value: Float[torch.Tensor, "N L_kv E_v"],
         is_causal=True,
     ) -> Float[torch.Tensor, "N forecast_length L_t E_q"]:
-        """
-        Forward pass; runs the following process:
-            1. Apply input projection
-            2. Split heads and prepare for SDPA
-            3. Run SDPA
-            4. Apply output projection
-
-        Args:
-            query (torch.Tensor): query of shape ``(N, L_q, E_qk)``
-            key (torch.Tensor): key of shape ``(N, L_kv, E_qk)``
-            value (torch.Tensor): value of shape ``(N, L_kv, E_v)``
-            is_causal (bool, optional): Whether to apply causal mask. Default: False
-
-        Returns:
-            attn_output (torch.Tensor): output of shape ``(N, forecast_length, L_t, E_q)``
-        """
+        """Apply input projection, split heads, run SDPA, SINDy rollout, and project output."""
         # Step 1. Apply input projection
         result = self.packed_proj(query)
         query, key, value = torch.chunk(result, 3, dim=-1)
@@ -274,14 +260,33 @@ class MultiHeadSINDyAttention(nn.Module):
 
 
 class TransformerEncoderLayer(nn.Module):
-    """
-    Single transformer encoder layer.
+    r"""Single transformer encoder layer.
 
     Consists of multi-head self-attention followed by a position-wise
     feedforward network, with residual connections and layer normalization.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    d_model : int
+        Model dimension (input/output size).
+    n_heads : int
+        Number of attention heads.
+    dim_feedforward : int
+        Dimension of feedforward network hidden layer.
+    dropout : float
+        Dropout probability.
+    activation : nn.Module
+        Activation function for feedforward network.
+    layer_norm_eps : float
+        Epsilon for layer normalization.
+    norm_first : bool
+        If True, apply layer norm before attention/feedforward.
+    bias : bool
+        Whether to use bias in linear layers.
+    dtype : torch.dtype, optional
+        Data type for parameters.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
     """
 
     def __init__(
@@ -297,21 +302,7 @@ class TransformerEncoderLayer(nn.Module):
         dtype: Optional[torch.dtype],
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the TransformerEncoderLayer module.
-
-        Args:
-            d_model (int): Model dimension (input/output size)
-            n_heads (int): Number of attention heads
-            dim_feedforward (int): Dimension of feedforward network hidden layer
-            dropout (float): Dropout probability
-            activation (nn.Module): Activation function for feedforward network
-            layer_norm_eps (float): Epsilon for layer normalization
-            norm_first (bool): If True, apply layer norm before attention/feedforward
-            bias (bool): Whether to use bias in linear layers
-            dtype (torch.dtype): Data type for parameters
-            device (str): Device to place the model on (default: "cpu")
-        """
+        """Initialize ``TransformerEncoderLayer``."""
         factory_kwargs = {"device": device, "dtype": dtype}
         super().__init__()
         self.self_attn = MultiHeadAttention(
@@ -339,46 +330,21 @@ class TransformerEncoderLayer(nn.Module):
     def _sa_block(
         self, x: Float[torch.Tensor, "batch seq_len d_model"], is_causal: bool
     ) -> Float[torch.Tensor, "batch seq_len d_model"]:
-        """
-        Self-attention block with dropout.
-
-        Args:
-            x (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-            torch.Tensor: Output tensor of shape (batch_size, seq_len, d_model)
-        """
+        """Self-attention block with dropout."""
         x = self.self_attn(x, x, x, is_causal=is_causal)
         return self.dropout1(x)
 
     def _ff_block(
         self, x: Float[torch.Tensor, "batch seq_len d_model"]
     ) -> Float[torch.Tensor, "batch seq_len d_model"]:
-        """Feedforward block with dropout.
-
-        Args:
-            x (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-
-        Returns:
-            torch.Tensor: Output tensor of shape (batch_size, seq_len, d_model)
-        """
+        """Feedforward block with dropout."""
         x = self.linear2(self.dropout(self.activation(self.linear1(x))))
         return self.dropout2(x)
 
     def forward(
         self, src: Float[torch.Tensor, "batch seq_len d_model"], is_causal: bool = True
     ) -> Float[torch.Tensor, "batch seq_len d_model"]:
-        """
-        Forward pass through the encoder layer.
-
-        Args:
-            src (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-            torch.Tensor: Output tensor of shape (batch_size, seq_len, d_model)
-        """
+        """Forward pass through the encoder layer."""
         x = src
         if self.norm_first:
             sa_out = self._sa_block(self.norm1(x), is_causal)
@@ -402,13 +368,22 @@ class TransformerEncoderLayer(nn.Module):
 
 
 class TransformerEncoderModule(nn.Module):
-    """
-    Stack of transformer encoder layers.
+    r"""Stack of transformer encoder layers.
 
     Applies multiple encoder layers sequentially with optional final normalization.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    encoder_layer : nn.Module
+        Single encoder layer to clone.
+    num_layers : int
+        Number of encoder layers.
+    norm : nn.Module, optional
+        Final layer normalization.
+    dtype : torch.dtype, optional
+        Data type for parameters.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
     """
 
     def __init__(
@@ -419,16 +394,7 @@ class TransformerEncoderModule(nn.Module):
         dtype: Optional[torch.dtype],
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the TransformerEncoderModule module.
-
-        Args:
-            encoder_layer (nn.Module): Single encoder layer to clone
-            num_layers (int): Number of encoder layers
-            norm (nn.Module, optional): Final layer normalization
-            dtype (torch.dtype): Data type for parameters
-            device (str): Device to place the model on (default: "cpu")
-        """
+        """Initialize ``TransformerEncoderModule``."""
         super().__init__()
         self.layers = _get_clones(encoder_layer, num_layers)
         self.num_layers = num_layers
@@ -437,16 +403,7 @@ class TransformerEncoderModule(nn.Module):
     def forward(
         self, src: Float[torch.Tensor, "batch seq_len d_model"], is_causal: bool = True
     ) -> Float[torch.Tensor, "batch seq_len d_model"]:
-        """
-        Forward pass through all encoder layers.
-
-        Args:
-            src (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-            torch.Tensor: Output tensor of shape (batch_size, seq_len, d_model)
-        """
+        """Forward pass through all encoder layers."""
         output = src
         for mod in self.layers:
             output = mod(output, is_causal)
@@ -456,14 +413,39 @@ class TransformerEncoderModule(nn.Module):
 
 
 class TransformerEncoder(nn.Module):
-    """
-    Standard transformer encoder for sequence modeling.
+    r"""Standard transformer encoder for sequence modeling.
 
     Implements input embedding, positional encoding, and stacked encoder layers
     for sequence-to-sequence transformation.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    d_model : int
+        Input dimension.
+    n_heads : int
+        Number of attention heads.
+    num_layers : int
+        Number of encoder layers.
+    dim_feedforward : int
+        Dimension of feedforward network.
+    dropout : float
+        Dropout probability.
+    activation : nn.Module
+        Activation function for feedforward layers.
+    layer_norm_eps : float
+        Epsilon for layer normalization.
+    norm_first : bool
+        Whether to apply layer norm before attention.
+    bias : bool
+        Whether to use bias in linear layers.
+    input_length : int
+        Maximum input sequence length.
+    hidden_size : int
+        Hidden dimension size.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
+    **kwargs
+        Additional keyword arguments (ignored).
     """
 
     def __init__(
@@ -482,24 +464,7 @@ class TransformerEncoder(nn.Module):
         device: str = "cpu",
         **kwargs,
     ) -> None:
-        """
-        Initialize the TransformerEncoder module.
-
-        Args:
-            d_model (int): Input dimension
-            n_heads (int): Number of attention heads
-            num_layers (int): Number of encoder layers
-            dim_feedforward (int): Dimension of feedforward network
-            dropout (float): Dropout probability
-            activation (nn.Module): Activation function for feedforward layers
-            layer_norm_eps (float): Epsilon for layer normalization
-            norm_first (bool): Whether to apply layer norm before attention
-            bias (bool): Whether to use bias in linear layers
-            input_length (int): Maximum input sequence length
-            hidden_size (int): Hidden dimension size
-            device (str): Device to place the model on (default: "cpu")
-            **kwargs: Additional keyword arguments (ignored)
-        """
+        """Initialize ``TransformerEncoder``."""
         super().__init__()
 
         self.input_embedding = nn.Linear(d_model, hidden_size, bias=bias, device=device)
@@ -538,17 +503,7 @@ class TransformerEncoder(nn.Module):
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal: bool = True,
     ) -> Tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], None]:
-        """
-        Forward pass through the transformer encoder.
-
-        Args:
-            src (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-        - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, seq_len, hidden_size)`` and ``None`` for no auxiliary losses.
-        """
+        """Forward pass through the transformer encoder."""
         # Embed input
         x_embedded = self.input_embedding(src)
 
@@ -566,11 +521,41 @@ class TransformerEncoder(nn.Module):
 
 
 class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
-    """
-    Transformer encoder with SINDy loss regularization.
+    r"""Transformer encoder with SINDy loss regularization.
 
     Combines a standard transformer encoder with SINDy-based regularization
     that encourages the learned representations to follow sparse polynomial ODEs.
+
+    Parameters
+    ----------
+    d_model : int
+        Input dimension of the model.
+    n_heads : int
+        Number of attention heads.
+    dim_feedforward : int
+        Dimension of feedforward network.
+    dropout : float
+        Dropout probability.
+    hidden_size : int
+        Hidden dimension size.
+    input_length : int
+        Length of input sequences.
+    num_layers : int
+        Number of transformer encoder layers.
+    dt : float
+        Time step for SINDy derivatives.
+    sindy_loss_threshold : float
+        Threshold for coefficient sparsification.
+    activation : nn.Module
+        Activation function for feedforward layers.
+    bias : bool
+        Whether to use bias in linear layers.
+    layer_norm_eps : float
+        Epsilon for layer normalization.
+    norm_first : bool
+        Whether to apply layer norm before attention.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
     """
 
     def __init__(
@@ -590,25 +575,7 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
         norm_first: bool,
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the SINDy Loss Transformer.
-
-        Args:
-            d_model (int): Input dimension of the model
-            n_heads (int): Number of attention heads
-            dim_feedforward (int): Dimension of feedforward network
-            dropout (float): Dropout probability
-            hidden_size (int): Hidden dimension size
-            input_length (int): Length of input sequences
-            num_layers (int): Number of transformer encoder layers
-            dt (float): Time step for SINDy derivatives
-            sindy_loss_threshold (float): Threshold for coefficient sparsification
-            activation (nn.Module): Activation function for feedforward layers
-            bias (bool): Whether to use bias in linear layers
-            layer_norm_eps (float): Epsilon for layer normalization
-            norm_first (bool): Whether to apply layer norm before attention
-            device (str): Device to place the model on (default: "cpu")
-        """
+        """Initialize ``SINDyLossTransformerEncoder``."""
         super().__init__(
             d_model=d_model,
             n_heads=n_heads,
@@ -631,14 +598,7 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal: bool = True,
     ) -> Tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], Float[torch.Tensor, ""]]:
-        """
-        Args:
-            src: Input tensor of shape (batch_size, sequence_length, d_model)
-
-        Returns:
-        - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, seq_len, hidden_size)`` and the SINDy loss tensor.
-        """
+        """Forward pass through the transformer encoder with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)
 
@@ -658,15 +618,42 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
 
 
 class SINDyAttentionTransformerEncoder(TransformerEncoder):
-    """
-    Transformer encoder with SINDy-based attention in the final layer.
+    r"""Transformer encoder with SINDy-based attention in the final layer.
 
     Extends the standard Transformer by replacing the attention mechanism
-    in the last encoder layer with MultiHeadSINDyAttention, enabling
+    in the last encoder layer with ``MultiHeadSINDyAttention``, enabling
     ODE-based latent space rollouts for multi-step forecasting.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    d_model : int
+        Input dimension of the model.
+    n_heads : int
+        Number of attention heads.
+    forecast_length : int
+        Number of future timesteps to predict.
+    num_layers : int
+        Number of transformer encoder layers.
+    dim_feedforward : int
+        Dimension of feedforward network.
+    dropout : float
+        Dropout probability.
+    activation : nn.Module
+        Activation function for feedforward layers.
+    layer_norm_eps : float
+        Epsilon for layer normalization.
+    norm_first : bool
+        Whether to apply layer norm before attention.
+    bias : bool
+        Whether to use bias in linear layers.
+    strict_symmetry : bool
+        If True, enforce strict symmetry in SINDy coefficients.
+    input_length : int
+        Length of input sequences.
+    hidden_size : int
+        Hidden dimension size.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
     """
 
     def __init__(
@@ -686,25 +673,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
         hidden_size: int,
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the SINDyAttentionTransformer module.
-
-        Args:
-            d_model (int): Input dimension of the model
-            n_heads (int): Number of attention heads
-            forecast_length (int): Number of future timesteps to predict
-            num_layers (int): Number of transformer encoder layers
-            dim_feedforward (int): Dimension of feedforward network
-            dropout (float): Dropout probability
-            activation (nn.Module): Activation function for feedforward layers
-            layer_norm_eps (float): Epsilon for layer normalization
-            norm_first (bool): Whether to apply layer norm before attention
-            strict_symmetry (bool): Whether to enforce strict symmetry in SINDy coefficients
-            bias (bool): Whether to use bias in linear layers
-            input_length (int): Length of input sequences
-            hidden_size (int): Hidden dimension size
-            device (str): Device to place the model on (default: "cpu")
-        """
+        """Initialize ``SINDyAttentionTransformerEncoder``."""
         super().__init__(
             d_model=d_model,
             n_heads=n_heads,
@@ -737,16 +706,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
         self.n_heads = n_heads
 
     def print_sindy_layer_coefficients(self) -> None:
-        """
-        Print the SINDy layer coefficients for all attention heads.
-
-        Displays the learned SINDy equations in human-readable format,
-        showing the coefficient values and corresponding library terms
-        for each hidden layer dimension.
-
-        Returns:
-            None
-        """
+        """Print the SINDy layer coefficients for all attention heads in human-readable format."""
         # coefficients: n_heads x ((library terms + 1 (for linear) terms) x library_terms equations)
         sindy_attn = cast(MultiHeadSINDyAttention, self.encoder.layers[-1].self_attn)
         for j in range(self.n_heads):
@@ -763,12 +723,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
             print()
 
     def get_sindy_layer_coefficients_eigenvalues(self) -> List[Float[torch.Tensor, "hidden_size"]]:  # noqa: F821
-        """
-        Get eigenvalues of SINDy coefficient matrices for all attention heads.
-
-        Returns:
-            list: List of eigenvalue tensors, one per attention head
-        """
+        """Get eigenvalues of SINDy coefficient matrices for all attention heads."""
         with torch.no_grad():
             eigvs_l = []
             sindy_attn = cast(MultiHeadSINDyAttention, self.encoder.layers[-1].self_attn)
@@ -778,12 +733,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
             return eigvs_l
 
     def get_sindy_layer_coefficients_sum(self) -> Float[torch.Tensor, ""]:
-        """
-        Sum of all SINDy coefficients in all heads of all layers.
-
-        Returns:
-            float: Sum of square roots of absolute SINDy coefficients
-        """
+        """Sum of squared SINDy coefficients in all heads of the last layer."""
         with torch.no_grad():
             sindy_sum = torch.tensor(0.0)
             layer: TransformerEncoderLayer = cast(TransformerEncoderLayer, self.encoder.layers[-1])
@@ -794,15 +744,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
         return sindy_sum
 
     def set_forecast_length(self, forecast_length):
-        """
-        Set the forecast length for all SINDy attention layers.
-
-        Args:
-            forecast_length (int): Number of future timesteps to predict
-
-        Returns:
-            None
-        """
+        """Set the forecast length for all SINDy attention layers."""
         # Set forecast length to expected plot length
         sindy_attn = cast(MultiHeadSINDyAttention, self.encoder.layers[-1].self_attn)
         sindy_attn.forecast_length = forecast_length
@@ -811,16 +753,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
             layer_i.forecast_length = forecast_length
 
     def threshold_sindy_layer_coefficients(self, threshold, verbose=False):
-        """
-        Threshold all SINDy coefficients in all heads of all layers.
-
-        Args:
-            threshold (float): Threshold value for SINDy coefficients
-            verbose (bool): Whether to print verbose output
-
-        Returns:
-            None
-        """
+        """Threshold all SINDy coefficients in all heads of the last layer."""
         layer = self.encoder.layers[-1]
         with torch.no_grad():
             sindy_attn = cast(MultiHeadSINDyAttention, layer.self_attn)
@@ -836,13 +769,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
             print()
 
     def get_dense_sindy_coefficients(self):
-        """
-        Get the dense SINDy coefficients for the model.
-        Returns a list of dense SINDy coefficient matrices, one for each expert.
-
-        Returns:
-            list: List of dense SINDy coefficient matrices
-        """
+        """Return a list of dense SINDy coefficient matrices, one per attention head."""
         odes = []
         sindy_attn = cast(MultiHeadSINDyAttention, self.encoder.layers[-1].self_attn)
         for i in range(self.n_heads):
@@ -855,17 +782,7 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal=True,
     ) -> Tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], None]:
-        """
-        Forward pass through the SINDy attention transformer.
-
-        Args:
-            src (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-        - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, forecast_length, seq_len, d_model)`` and ``None`` for no auxiliary losses.
-        """
+        """Forward pass through the SINDy attention transformer."""
         # Embed input
         x_embedded = self.input_embedding(src)
 
@@ -881,15 +798,45 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
 
 
 class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTransformerEncoder):
-    """
-    Transformer encoder with SINDy-based attention in the final layer and SINDy loss regularization.
+    r"""Transformer encoder with SINDy attention and SINDy loss regularization.
 
-    Extends the standard Transformer by replacing the attention mechanism
-    in the last encoder layer with MultiHeadSINDyAttention, enabling
-    ODE-based latent space rollouts for multi-step forecasting.
+    Combines SINDy-based attention in the final layer with SINDy loss
+    regularization for ODE-based latent rollouts and sparse dynamics.
 
-    Copied from pytorch:
-    https://docs.pytorch.org/tutorials/intermediate/transformer_building_blocks.html
+    Parameters
+    ----------
+    d_model : int
+        Input dimension of the model.
+    n_heads : int
+        Number of attention heads.
+    forecast_length : int
+        Number of future timesteps to predict.
+    num_layers : int
+        Number of transformer encoder layers.
+    dim_feedforward : int
+        Dimension of feedforward network.
+    dropout : float
+        Dropout probability.
+    activation : nn.Module
+        Activation function for feedforward layers.
+    layer_norm_eps : float
+        Epsilon for layer normalization.
+    norm_first : bool
+        Whether to apply layer norm before attention.
+    bias : bool
+        Whether to use bias in linear layers.
+    strict_symmetry : bool
+        If True, enforce strict symmetry in SINDy coefficients.
+    input_length : int
+        Length of input sequences.
+    hidden_size : int
+        Hidden dimension size.
+    sindy_loss_threshold : float
+        Threshold for coefficient sparsification.
+    dt : float
+        Time step for SINDy derivatives.
+    device : str, optional
+        Device to place the model on. Default is ``"cpu"``.
     """
 
     def __init__(
@@ -911,27 +858,7 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         dt: float,
         device: str = "cpu",
     ) -> None:
-        """
-        Initialize the SINDyAttentionTransformer module.
-
-        Args:
-            d_model (int): Input dimension of the model
-            n_heads (int): Number of attention heads
-            forecast_length (int): Number of future timesteps to predict
-            num_layers (int): Number of transformer encoder layers
-            dim_feedforward (int): Dimension of feedforward network
-            dropout (float): Dropout probability
-            activation (nn.Module): Activation function for feedforward layers
-            layer_norm_eps (float): Epsilon for layer normalization
-            norm_first (bool): Whether to apply layer norm before attention
-            strict_symmetry (bool): Whether to enforce strict symmetry in SINDy coefficients
-            bias (bool): Whether to use bias in linear layers
-            input_length (int): Length of input sequences
-            hidden_size (int): Hidden dimension size
-            sindy_loss_threshold (float): Threshold for coefficient sparsification
-            dt (float): Time step for SINDy derivatives
-            device (str): Device to place the model on (default: "cpu")
-        """
+        """Initialize ``SINDyAttentionSINDyLossTransformerEncoder``."""
         super().__init__(
             d_model=d_model,
             n_heads=n_heads,
@@ -956,17 +883,7 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal=True,
     ) -> Tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], Float[torch.Tensor, ""]]:
-        """
-        Forward pass through the SINDy attention transformer.
-
-        Args:
-            src (torch.Tensor): Input tensor of shape (batch_size, seq_len, d_model)
-            is_causal (bool): Whether to apply causal masking. Default: True
-
-        Returns:
-        - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, forecast_length, seq_len, d_model)`` and ``None`` for no auxiliary losses.
-        """
+        """Forward pass through the SINDy attention transformer with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)
 
@@ -985,18 +902,19 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         return (transformer_output, sindy_loss)
 
 
-def _get_clones(module, N):
-    """
-    Create N deep copies of a PyTorch module.
+def _get_clones(module: nn.Module, N: int) -> nn.ModuleList:
+    """Create N deep copies of a PyTorch module.
 
-    Used for exact parity with PyTorch's transformer implementation.
-    Having the same init for every layer might not be strictly necessary.
+    Parameters
+    ----------
+    module : nn.Module
+        PyTorch module to clone.
+    N : int
+        Number of clones to create.
 
-    Args:
-        module (nn.Module): PyTorch module to clone
-        N (int): Number of clones to create
-
-    Returns:
-        nn.ModuleList: List of N independent copies of the module
+    Returns
+    -------
+    nn.ModuleList
+        List of N independent copies of the module.
     """
     return nn.ModuleList([copy.deepcopy(module) for i in range(N)])
