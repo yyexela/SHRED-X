@@ -2,10 +2,11 @@
 Drop-in replacement for sklearn.preprocessing.PolynomialFeatures with gradient support.
 """
 
+from itertools import combinations, combinations_with_replacement
+
 import torch
 from jaxtyping import Float
 from scipy.special import comb
-from itertools import combinations_with_replacement, combinations
 
 
 class PolynomialFeatures(torch.nn.Module):
@@ -74,7 +75,7 @@ class PolynomialFeatures(torch.nn.Module):
 
     def __init__(self, degree: int, interaction_only: bool = False, include_bias: bool = True) -> None:
         """Initialize polynomial features."""
-        super(PolynomialFeatures, self).__init__()
+        super().__init__()
 
         if degree < 1:
             raise ValueError("Degree must be at least 1")
@@ -92,8 +93,7 @@ class PolynomialFeatures(torch.nn.Module):
         # Create combinations
         output = []
         for d in range(1, self.degree + 1):
-            for combo in comb_f(range(self.n_feature_in), d):
-                output.append(torch.prod(x[:, combo], dim=1))
+            output.extend(torch.prod(x[:, combo], dim=1) for combo in comb_f(range(self.n_feature_in), d))
         output = torch.stack(output, dim=1)
 
         # Add bias
@@ -146,7 +146,7 @@ class PolynomialFeatures(torch.nn.Module):
         self.n_feature_in = X.shape[-1]
 
         self.n_output_features_ = int(
-            sum([comb(self.n_feature_in, d, repetition=(not self.interaction_only)) for d in range(1, self.degree + 1)])
+            sum(comb(self.n_feature_in, d, repetition=(not self.interaction_only)) for d in range(1, self.degree + 1))
         )
 
         if self.include_bias:

@@ -9,5 +9,6 @@ docstring-code-line-length = 20
 preview = true
 
 ignore = [
-   "F722" # to avoid breaking syntax from jaxtyping
+   "F722", # to avoid breaking syntax from jaxtyping
+   "RET504" # it's cleaner to have assignments before returns
 ]

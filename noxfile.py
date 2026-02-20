@@ -1,5 +1,6 @@
-import nox
 import glob
+
+import nox
 
 
 @nox.session
@@ -29,9 +30,9 @@ def typecheck(session):
 @nox.session
 def lft(session):
     session.install(".[dev]")
-    session.run("pyrefly", "check")
-    session.run("ruff", "check")
     session.run("ruff", "format")
+    session.run("ruff", "check")
+    session.run("pyrefly", "check")
 
 
 @nox.session

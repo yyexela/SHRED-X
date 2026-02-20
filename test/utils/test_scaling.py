@@ -1,8 +1,9 @@
 """Verify the scaling functions are working correctly."""
 
-import torch
 import pytest
-from shredx.utils.scaling import min_max_scale, inverse_min_max_scale
+import torch
+
+from shredx.utils.scaling import inverse_min_max_scale, min_max_scale
 
 
 def test_min_max_scale_success_1():

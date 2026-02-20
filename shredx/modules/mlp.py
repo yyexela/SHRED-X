@@ -1,14 +1,15 @@
 """Multi-layer perceptron (MLP) encoders and decoders for sequence modeling. Also implements MOE-MLP encoder."""
 
 import math
+
 import einops
 import torch
-import torch.nn as nn
 from jaxtyping import Float
-from typing import Tuple
-from typing import List
-from shredx.modules.moe_mixin import MOE_SINDy_Layer_Helpers_Mixin
-from shredx.modules.sindy_layer import SindyLayer
+from torch import nn
+
+from shredx.modules.moe_mixin import MOESINDyLayerHelpersMixin
+from shredx.modules.sindy_layer import SINDyLayer
+from shredx.modules.sindy_loss_mixin import SINDyLossMixin
 
 
 class MLPEncoder(nn.Module):
@@ -54,7 +55,7 @@ class MLPEncoder(nn.Module):
         device: str = "cpu",
     ) -> None:
         """Initialize ``MLPEncoder``."""
-        super(MLPEncoder, self).__init__()
+        super().__init__()
         # Class variables
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -78,7 +79,7 @@ class MLPEncoder(nn.Module):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
         """Apply the MLP encoder to an input batch."""
         out = self.model(x)
         out = self.dropout(out)
@@ -135,7 +136,7 @@ class MLPDecoder(nn.Module):
         device: str = "cpu",
     ) -> None:
         """Initialize the MLP decoder."""
-        super(MLPDecoder, self).__init__()
+        super().__init__()
         # Class variables
         self.in_dim = in_dim
         self.out_dim = out_dim
@@ -170,10 +171,10 @@ class MLPDecoder(nn.Module):
 
     def forward(
         self,
-        x: Tuple[
-            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], List[torch.FloatTensor] | None
+        x: tuple[
+            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], list[torch.FloatTensor] | None
         ],
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], List[torch.FloatTensor] | None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], list[torch.FloatTensor] | None]:
         """Apply the MLP decoder to an input batch."""
         aux_losses = x[1]
         x_in = x[0]
@@ -182,7 +183,7 @@ class MLPDecoder(nn.Module):
         return (out, aux_losses)
 
 
-class MOEMLPEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
+class MOEMLPEncoder(nn.Module, MOESINDyLayerHelpersMixin):
     r"""Multi-Layer Perceptron (MLP) with SINDy layer forecasting.
 
     Creates a feedforward neural network with identical layer sizes, ReLU
@@ -216,10 +217,10 @@ class MOEMLPEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
 
     - Processes input through the MLP, then passes the final hidden state through all SINDy experts and combines their outputs.
     - Parameters:
-        - x : torch.Tensor. Input tensor of shape ``(batch_size, sequence_length, input_size)``.
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
-        - dict. Keys: ``"sequence_output"`` (MLP output, shape ``(batch_size, sequence_length, hidden_size)``),
-          ``"output"`` (combined expert forecasts, shape ``(batch_size, forecast_length, 1, hidden_size)``).
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, forecast_length, 1, hidden_size)`` and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -263,7 +264,7 @@ class MOEMLPEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         self.linear_combination = nn.Parameter(torch.ones(self.n_experts) / self.n_experts)
         self.experts = nn.ModuleList(
             [
-                SindyLayer(
+                SINDyLayer(
                     hidden_size=self.hidden_size,
                     forecast_length=self.forecast_length,
                     device=self.device,
@@ -275,7 +276,7 @@ class MOEMLPEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> Tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
         """Forward pass through the MOE-MLP model."""
         out = self.mlp(x)
 
@@ -291,3 +292,78 @@ class MOEMLPEncoder(nn.Module, MOE_SINDy_Layer_Helpers_Mixin):
         combined = torch.einsum("ebfsd,e->bfsd", sindy_outputs, weights)
 
         return (combined, None)
+
+
+class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
+    r"""MLP encoder with SINDy loss regularization.
+
+    Combines a standard MLP encoder with SINDy-based regularization that
+    encourages the hidden state dynamics to follow a sparse polynomial ODE.
+
+    Parameters
+    ----------
+    input_size : int
+        Input feature dimension.
+    hidden_size : int
+        Hidden state dimension.
+    num_layers : int
+        Number of stacked MLP layers.
+    dropout : float
+        Dropout probability applied to the outputs.
+    dt : float
+        Time step for SINDy derivatives.
+    sindy_loss_threshold : float
+        Threshold for coefficient sparsification.
+    device : str, optional
+        Device on which to place the module. Default is ``"cpu"``.
+    **kwargs
+        Additional keyword arguments passed for compatibility but ignored.
+
+    Notes
+    -----
+    **Class Methods:**
+
+    **forward(x):**
+
+    - Processes input through the MLP and computes SINDy loss based on how well hidden state transitions follow learned dynamics.
+    - Parameters:
+        - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+    """
+
+    def __init__(
+        self,
+        input_size: int,
+        hidden_size: int,
+        num_layers: int,
+        dropout: float,
+        dt: float,
+        sindy_loss_threshold: float,
+        device: str = "cpu",
+        **kwargs,
+    ) -> None:
+        """Initialize the SINDy Loss MLP."""
+        super().__init__(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            dropout=dropout,
+            device=device,
+            dt=dt,
+            sindy_loss_threshold=sindy_loss_threshold,
+        )
+
+    def forward(  # pyrefly: ignore[bad-override]
+        self, x: Float[torch.Tensor, "batch sequence input_size"]
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+        """Apply the SINDy Loss MLP encoder to an input batch."""
+        out = self.model(x)
+
+        sindy_loss = self.compute_sindy_loss(out)
+
+        out = self.dropout(out)
+        out = einops.rearrange(out, "b s d -> b 1 s d")
+        out = out[:, :, -1:, :]
+        return (out, sindy_loss)

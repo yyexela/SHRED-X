@@ -1,7 +1,8 @@
 """Verify the decoder modules are working correctly."""
 
-import torch
 import pytest
+import torch
+
 from shredx.modules.cnn import CNNDecoder
 
 

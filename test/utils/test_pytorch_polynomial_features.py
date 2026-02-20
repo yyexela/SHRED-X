@@ -1,7 +1,8 @@
 import pytest
 import torch
-from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 from sklearn.preprocessing import PolynomialFeatures as SklearnPolyFeatures
+
+from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 
 
 @pytest.mark.parametrize("degree", [1, 2, 3])

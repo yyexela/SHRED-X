@@ -1,7 +1,8 @@
 """Verify the scaling functions are working correctly."""
 
-import torch
 import pytest
+import torch
+
 from shredx.datasets.dataloaders import TimeSeriesDataset
 
 

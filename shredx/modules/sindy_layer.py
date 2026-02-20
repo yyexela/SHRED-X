@@ -4,15 +4,16 @@ Implements a differentiable SINDy (Sparse Identification of Nonlinear Dynamics)
 layer for learning interpretable ODEs and performing arbitrary-length forecasting.
 """
 
-import torch
 import einops
-import torch.nn as nn
+import torch
 from jaxtyping import Float
+from torch import nn
 from torchdiffeq import odeint
+
 from shredx.utils.pytorch_polynomial_features import PolynomialFeatures
 
 
-class SindyLayer(nn.Module):
+class SINDyLayer(nn.Module):
     r"""Differentiable SINDy layer for ODE-based forecasting.
 
     Learns sparse polynomial dynamics from data and uses ODE integration

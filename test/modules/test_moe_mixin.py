@@ -1,5 +1,6 @@
-import torch
 import pytest
+import torch
+
 from shredx.modules.rnn import MOELSTMEncoder
 
 

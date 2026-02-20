@@ -2,15 +2,16 @@
 Mixture of Experts mixin module for SINDy layer forecasting.
 """
 
-import torch
-from jaxtyping import Float
-import torch.nn as nn
 from typing import cast
 
-from shredx.modules.sindy_layer import SindyLayer
+import torch
+from jaxtyping import Float
+from torch import nn
+
+from shredx.modules.sindy_layer import SINDyLayer
 
 
-class MOE_SINDy_Layer_Helpers_Mixin:
+class MOESINDyLayerHelpersMixin:
     r"""Mixin providing helper methods for Mixture of Experts models with SINDy layers.
 
     Provides common functionality for printing, modifying, and analyzing SINDy
@@ -65,7 +66,7 @@ class MOE_SINDy_Layer_Helpers_Mixin:
         """Print the SINDy coefficients for all experts in a human-readable format."""
         for j in range(self.n_experts):
             expert = self.experts[j]
-            expert = cast(SindyLayer, expert)
+            expert = cast(SINDyLayer, expert)
             print(f"Expert {j}:")
             coefficients = expert.get_dense_sindy_coefficients()
             library = expert.pf.get_feature_names_out()
@@ -81,7 +82,7 @@ class MOE_SINDy_Layer_Helpers_Mixin:
         """Set the forecast length for the model and all expert SINDy layers."""
         self.forecast_length = forecast_length
         for expert in self.experts:
-            expert = cast(SindyLayer, expert)
+            expert = cast(SINDyLayer, expert)
             expert.forecast_length = forecast_length
 
     def get_sindy_layer_coefficients_eigenvalues(self) -> list[Float[torch.Tensor, "hidden_size"]]:  # noqa: F821
@@ -89,16 +90,16 @@ class MOE_SINDy_Layer_Helpers_Mixin:
         with torch.no_grad():
             eigvs_l = []
             for expert in self.experts:
-                expert = cast(SindyLayer, expert)
+                expert = cast(SINDyLayer, expert)
                 eigvs_l.append(expert.get_eigenvalues())
             return eigvs_l
 
-    def get_sindy_layer_coefficients_sum(self) -> float:
+    def get_sindy_layer_coefficients_sum(self) -> Float[torch.Tensor, ""]:
         """Compute the sum of absolute SINDy coefficients across all experts (sparsity regularization)."""
         with torch.no_grad():
-            sindy_sum: float = 0.0
+            sindy_sum = torch.tensor(0.0)
             for expert in self.experts:
-                expert = cast(SindyLayer, expert)
+                expert = cast(SINDyLayer, expert)
                 sindy_sum += float(torch.sqrt(torch.abs(expert.get_raw_sindy_coefficients()).sum()))
             return sindy_sum
 
@@ -107,12 +108,12 @@ class MOE_SINDy_Layer_Helpers_Mixin:
         with torch.no_grad():
             for i in range(self.n_experts):
                 expert = self.experts[i]
-                expert = cast(SindyLayer, expert)
+                expert = cast(SINDyLayer, expert)
                 mask = torch.abs(expert.get_raw_sindy_coefficients()) > threshold
                 expert.set_raw_sindy_coefficients(expert.get_raw_sindy_coefficients() * mask)
                 if verbose:
                     print(
-                        f"MOE_SINDy_Layer_Helpers_Mixin: Applied threshold {threshold} to expert {i}. Non-zero coeffs: {mask.sum().item()}/{mask.numel()}"
+                        f"MOESINDyLayerHelpersMixin: Applied threshold {threshold} to expert {i}. Non-zero coeffs: {mask.sum().item()}/{mask.numel()}"
                     )
         if verbose:
             print()
