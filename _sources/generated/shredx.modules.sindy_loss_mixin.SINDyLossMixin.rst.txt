@@ -1,0 +1,10 @@
+shredx.modules.sindy\_loss\_mixin.SINDyLossMixin
+================================================
+
+.. currentmodule:: shredx.modules.sindy_loss_mixin
+
+.. autoclass:: SINDyLossMixin
+
+    
+
+    

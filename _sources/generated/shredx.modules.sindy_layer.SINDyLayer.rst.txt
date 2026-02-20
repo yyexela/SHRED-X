@@ -1,9 +1,9 @@
-shredx.modules.sindy\_layer.SindyLayer
+shredx.modules.sindy\_layer.SINDyLayer
 ======================================
 
 .. currentmodule:: shredx.modules.sindy_layer
 
-.. autoclass:: SindyLayer
+.. autoclass:: SINDyLayer
 
     
 

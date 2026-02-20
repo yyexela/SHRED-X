@@ -18,4 +18,6 @@ shredx.modules.rnn
       LSTMEncoder
       MOEGRUEncoder
       MOELSTMEncoder
+      SINDyLossGRUEncoder
+      SINDyLossLSTMEncoder
 

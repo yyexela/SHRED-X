@@ -1,0 +1,10 @@
+shredx.modules.positional\_encoding.PositionalEncoding
+======================================================
+
+.. currentmodule:: shredx.modules.positional_encoding
+
+.. autoclass:: PositionalEncoding
+
+    
+
+    

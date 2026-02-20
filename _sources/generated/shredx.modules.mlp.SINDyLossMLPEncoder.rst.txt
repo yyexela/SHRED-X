@@ -1,0 +1,10 @@
+shredx.modules.mlp.SINDyLossMLPEncoder
+======================================
+
+.. currentmodule:: shredx.modules.mlp
+
+.. autoclass:: SINDyLossMLPEncoder
+
+    
+
+    

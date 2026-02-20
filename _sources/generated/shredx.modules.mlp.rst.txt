@@ -17,4 +17,5 @@ shredx.modules.mlp
       MLPDecoder
       MLPEncoder
       MOEMLPEncoder
+      SINDyLossMLPEncoder
 

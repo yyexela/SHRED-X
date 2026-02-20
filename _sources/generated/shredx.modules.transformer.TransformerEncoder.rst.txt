@@ -1,0 +1,10 @@
+shredx.modules.transformer.TransformerEncoder
+=============================================
+
+.. currentmodule:: shredx.modules.transformer
+
+.. autoclass:: TransformerEncoder
+
+    
+
+    

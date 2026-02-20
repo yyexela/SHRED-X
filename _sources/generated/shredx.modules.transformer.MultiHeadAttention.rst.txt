@@ -1,0 +1,10 @@
+shredx.modules.transformer.MultiHeadAttention
+=============================================
+
+.. currentmodule:: shredx.modules.transformer
+
+.. autoclass:: MultiHeadAttention
+
+    
+
+    

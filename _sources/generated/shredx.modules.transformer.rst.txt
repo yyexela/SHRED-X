@@ -1,0 +1,25 @@
+shredx.modules.transformer
+==========================
+
+.. automodule:: shredx.modules.transformer
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      MultiHeadAttention
+      MultiHeadSINDyAttention
+      SINDyAttentionSINDyLossTransformerEncoder
+      SINDyAttentionTransformerEncoder
+      SINDyLossTransformerEncoder
+      TransformerEncoder
+      TransformerEncoderLayer
+      TransformerEncoderModule
+

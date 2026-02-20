@@ -1,0 +1,18 @@
+shredx.modules.sindy\_loss\_mixin
+=================================
+
+.. automodule:: shredx.modules.sindy_loss_mixin
+
+   
+
+
+
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+   
+      SINDyLossMixin
+

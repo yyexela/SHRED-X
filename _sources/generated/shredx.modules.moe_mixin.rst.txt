@@ -14,5 +14,5 @@ shredx.modules.moe\_mixin
    .. autosummary::
       :toctree:
    
-      MOE_SINDy_Layer_Helpers_Mixin
+      MOESINDyLayerHelpersMixin
 

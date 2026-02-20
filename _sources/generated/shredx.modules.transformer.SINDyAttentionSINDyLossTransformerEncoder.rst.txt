@@ -1,0 +1,10 @@
+shredx.modules.transformer.SINDyAttentionSINDyLossTransformerEncoder
+====================================================================
+
+.. currentmodule:: shredx.modules.transformer
+
+.. autoclass:: SINDyAttentionSINDyLossTransformerEncoder
+
+    
+
+    

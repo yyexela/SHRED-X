@@ -1,0 +1,10 @@
+shredx.modules.rnn.SINDyLossGRUEncoder
+======================================
+
+.. currentmodule:: shredx.modules.rnn
+
+.. autoclass:: SINDyLossGRUEncoder
+
+    
+
+    

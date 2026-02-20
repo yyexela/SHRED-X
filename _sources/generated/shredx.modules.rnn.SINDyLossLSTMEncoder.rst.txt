@@ -1,0 +1,10 @@
+shredx.modules.rnn.SINDyLossLSTMEncoder
+=======================================
+
+.. currentmodule:: shredx.modules.rnn
+
+.. autoclass:: SINDyLossLSTMEncoder
+
+    
+
+    

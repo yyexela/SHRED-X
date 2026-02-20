@@ -19,5 +19,8 @@ shredx.modules
    cnn
    mlp
    moe_mixin
+   positional_encoding
    rnn
    sindy_layer
+   sindy_loss_mixin
+   transformer

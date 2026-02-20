@@ -14,5 +14,5 @@ shredx.modules.sindy\_layer
    .. autosummary::
       :toctree:
    
-      SindyLayer
+      SINDyLayer
 
