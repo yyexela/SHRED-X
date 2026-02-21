@@ -35,13 +35,9 @@ class CNNDecoder(nn.Module):
 
     - Applies the CNN decoder to an input batch.
     - Parameters:
-        - x : tuple. Tuple containing the input tensor of shape
-          ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses
-          (``List[torch.FloatTensor] | None``).
+        - x : Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"]. Input tensor.
     - Returns:
-        - tuple. Tuple containing the decoded tensor of shape
-          ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses
-          (``List[torch.FloatTensor] | None``).
+        - tuple. Tuple containing the decoded tensor of shape and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -87,17 +83,15 @@ class CNNDecoder(nn.Module):
 
     def forward(
         self,
-        x: tuple[
-            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], list[torch.FloatTensor] | None
-        ],
+        x: Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"],
     ) -> tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], list[torch.FloatTensor] | None]:
         """Apply the CNN decoder to an input batch."""
-        aux_losses = x[1]
-        x_in = x[0]
-
-        _batch_size, forecast_length, sequence_length, _hidden_dim = x_in.shape
-        x_in = einops.rearrange(x_in, "b f s d -> b d (f s)", f=forecast_length, s=sequence_length)
-        out = self.model(x_in)
+        _batch_size, forecast_length, sequence_length, _hidden_dim = x.shape
+        print(x.shape)
+        x = einops.rearrange(x, "b f s d -> b d (f s)", f=forecast_length, s=sequence_length)
+        print(x.shape)
+        print(self.model)
+        out = self.model(x)
         out = self.dropout(out)  # want: batch forecast seq_len (rows cols dim)
         out = einops.rearrange(out, "b o (f s) -> b f s o", f=forecast_length, s=sequence_length)
-        return (out, aux_losses)
+        return (out, None)

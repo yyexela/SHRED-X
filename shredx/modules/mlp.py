@@ -118,13 +118,9 @@ class MLPDecoder(nn.Module):
 
     - Applies the MLP decoder to an input batch.
     - Parameters:
-        - x : tuple. Tuple containing the input tensor of shape
-          ``(batch, forecast_length, sequence_length, hidden_dim)`` and the auxiliary losses
-          (``List[torch.FloatTensor] | None``).
+        - x : Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"]. Input tensor.
     - Returns:
-        - tuple. Tuple containing the decoded tensor of shape
-          ``(batch, forecast_length, sequence_length, out_dim)`` and the auxiliary losses
-          (``List[torch.FloatTensor] | None``).
+        - tuple. Tuple containing the decoded tensor of shape and ``None`` for no auxiliary losses.
     """
 
     def __init__(
@@ -171,16 +167,12 @@ class MLPDecoder(nn.Module):
 
     def forward(
         self,
-        x: tuple[
-            Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"], list[torch.FloatTensor] | None
-        ],
+        x: Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"],
     ) -> tuple[Float[torch.Tensor, "batch forecast_length sequence_length out_dim"], list[torch.FloatTensor] | None]:
         """Apply the MLP decoder to an input batch."""
-        aux_losses = x[1]
-        x_in = x[0]
-        out = self.model(x_in)
+        out = self.model(x)
         out = self.dropout(out)
-        return (out, aux_losses)
+        return (out, None)
 
 
 class MOEMLPEncoder(nn.Module, MOESINDyLayerHelpersMixin):
@@ -330,7 +322,7 @@ class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
         - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
         - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+          ``(batch_size, 1, 1, hidden_size)`` and a dictionary of auxiliary losses.
     """
 
     def __init__(
@@ -357,7 +349,7 @@ class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], dict[str, Float[torch.Tensor, ""]]]:
         """Apply the SINDy Loss MLP encoder to an input batch."""
         out = self.model(x)
 
@@ -366,4 +358,4 @@ class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
         out = self.dropout(out)
         out = einops.rearrange(out, "b s d -> b 1 s d")
         out = out[:, :, -1:, :]
-        return (out, sindy_loss)
+        return (out, {"sindy_loss": sindy_loss})

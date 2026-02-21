@@ -35,9 +35,8 @@ def test_mlp_decoder_forward_success(input_size, num_layer):
     out_dim = 10
 
     input_tensor = torch.randn(batch_size, 1, 1, input_size).float()
-    input_tuple = (input_tensor, None)
     mlp = MLPDecoder(in_dim=input_size, out_dim=out_dim, n_layers=num_layer, dropout=dropout)
-    output = mlp(input_tuple)
+    output = mlp(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, 1, 1, out_dim)
 
@@ -95,6 +94,6 @@ def test_mlp_sindy_loss_forward_success(hidden_size, num_layer):
     output = mlp(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, 1, 1, hidden_size)
-    assert output[1].shape == torch.Size([])
+    assert output[1]["sindy_loss"].shape == torch.Size([])
     mlp.thresholding(threshold=0.1)
     mlp.thresholding(threshold=None)

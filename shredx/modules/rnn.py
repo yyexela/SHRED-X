@@ -420,7 +420,7 @@ class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
         - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
         - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+          ``(batch_size, 1, 1, hidden_size)`` and a dictionary of auxiliary losses.
     """
 
     def __init__(
@@ -447,7 +447,7 @@ class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], dict[str, Float[torch.Tensor, ""]]]:
         """Apply the SINDy Loss GRU encoder to an input batch."""
         out, h_out = self.gru(x)
         h_out = h_out[-1:]
@@ -459,7 +459,7 @@ class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
         out = einops.rearrange(out, "b s d -> b 1 s d")
         h_out = einops.rearrange(h_out, "s b d -> b 1 s d")
 
-        return (h_out, sindy_loss)
+        return (h_out, {"sindy_loss": sindy_loss})
 
 
 class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
@@ -498,7 +498,7 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
         - x : ``Float[torch.Tensor, "batch sequence input_size"]``. Input tensor.
     - Returns:
         - tuple. Tuple containing the final output tensor of shape
-          ``(batch_size, 1, 1, hidden_size)`` and ``None`` for no auxiliary losses.
+          ``(batch_size, 1, 1, hidden_size)`` and a dictionary of auxiliary losses.
     """
 
     def __init__(
@@ -526,7 +526,7 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
-    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], dict[str, Float[torch.Tensor, ""]]]:
         """Apply the SINDy Loss LSTM encoder to an input batch."""
         # Initialize hidden and cell
         out, (h_out, _c_out) = self.lstm(x)
@@ -539,4 +539,4 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
         out = einops.rearrange(out, "b s d -> b 1 s d")
         h_out = einops.rearrange(h_out, "s b d -> b 1 s d")
 
-        return (h_out, sindy_loss)
+        return (h_out, {"sindy_loss": sindy_loss})

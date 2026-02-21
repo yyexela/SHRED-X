@@ -201,6 +201,7 @@ def test_sindy_loss_transformer_encoder_helpers_success(input_size, num_layer, n
     output = transformer(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, 1, sequence_length, input_size)
+    assert output[1]["sindy_loss"].shape == torch.Size([])
 
 
 @pytest.mark.parametrize("input_size", [6, 7])
@@ -237,3 +238,4 @@ def test_sindy_attention_sindy_loss_transformer_encoder_forward_success(input_si
     output = transformer(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, forecast_length, sequence_length, input_size)
+    assert output[1]["sindy_loss"].shape == torch.Size([])
