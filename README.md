@@ -2,6 +2,8 @@
 
 This package is in development. Eventually, it will be a comprehensive SHRED package, containing all published SHRED models for research and industrial purposes. We are starting out with a PyTorch implementation but have goals to make it Jax-compatible as well.
 
+Website: [https://yyexela.github.io/SHRED-X/](https://yyexela.github.io/SHRED-X/)
+
 ## Environment
 
 The environment can be created by running:

@@ -131,7 +131,7 @@ def test_gru_sindy_loss_forward_success(hidden_size, num_layer):
     output = gru(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, 1, 1, hidden_size)
-    assert output[1].shape == torch.Size([])
+    assert output[1]["sindy_loss"].shape == torch.Size([])
     gru.thresholding(threshold=0.1)
     gru.thresholding(threshold=None)
 
@@ -160,6 +160,6 @@ def test_lstm_sindy_loss_forward_success(hidden_size, num_layer):
     output = lstm(input_tensor)
     assert output is not None
     assert output[0].shape == (batch_size, 1, 1, hidden_size)
-    assert output[1].shape == torch.Size([])
+    assert output[1]["sindy_loss"].shape == torch.Size([])
     lstm.thresholding(threshold=0.1)
     lstm.thresholding(threshold=None)

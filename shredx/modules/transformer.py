@@ -558,6 +558,21 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
         Whether to apply layer norm before attention.
     device : str, optional
         Device to place the model on. Default is ``"cpu"``.
+
+    Notes
+    -----
+    **Class Methods:**
+
+    **forward(src, is_causal):**
+
+    - Forward pass through the transformer encoder with SINDy loss.
+    - Parameters:
+        - src : ``Float[torch.Tensor, "batch seq_len d_model"]``. Input tensor.
+        - is_causal : bool, optional. Whether to apply causal masking. Default is ``True``.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, 1, seq_len, hidden_size)`` and a dictionary of auxiliary losses.
+          The dictionary contains the SINDy loss as ``"sindy_loss"``.
     """
 
     def __init__(
@@ -599,7 +614,7 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal: bool = True,
-    ) -> tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch 1 seq_len hidden_size"], dict[str, Float[torch.Tensor, ""]]]:
         """Forward pass through the transformer encoder with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)
@@ -616,7 +631,7 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
 
         transformer_output = einops.rearrange(transformer_output, "b s d -> b 1 s d")
 
-        return (transformer_output, sindy_loss)
+        return (transformer_output, {"sindy_loss": sindy_loss})
 
 
 class SINDyAttentionTransformerEncoder(TransformerEncoder):
@@ -839,6 +854,21 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         Time step for SINDy derivatives.
     device : str, optional
         Device to place the model on. Default is ``"cpu"``.
+
+    Notes
+    -----
+    **Class Methods:**
+
+    **forward(src, is_causal):**
+
+    - Forward pass through the transformer encoder with SINDy attention and SINDy loss.
+    - Parameters:
+        - src : ``Float[torch.Tensor, "batch seq_len d_model"]``. Input tensor.
+        - is_causal : bool, optional. Whether to apply causal masking. Default is ``True``.
+    - Returns:
+        - tuple. Tuple containing the final output tensor of shape
+          ``(batch_size, forecast_length, seq_len, d_model)`` and a dictionary of auxiliary losses.
+          The dictionary contains the SINDy loss as ``"sindy_loss"``.
     """
 
     def __init__(
@@ -884,7 +914,7 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
         is_causal=True,
-    ) -> tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], Float[torch.Tensor, ""]]:
+    ) -> tuple[Float[torch.Tensor, "batch forecast_length seq_len d_model"], dict[str, Float[torch.Tensor, ""]]]:
         """Forward pass through the SINDy attention transformer with SINDy loss."""
         # Embed input
         x_embedded = self.input_embedding(src)
@@ -901,7 +931,7 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
         transformer_output_3d = einops.rearrange(transformer_output, "b n s d -> (b n) s d")
         sindy_loss = self.compute_sindy_loss(transformer_output_3d)
 
-        return (transformer_output, sindy_loss)
+        return (transformer_output, {"sindy_loss": sindy_loss})
 
 
 def _get_clones(module: nn.Module, N: int) -> nn.ModuleList:
