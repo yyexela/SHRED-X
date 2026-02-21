@@ -1,0 +1,10 @@
+shredx.models.mixed\_model.MixedModel
+=====================================
+
+.. currentmodule:: shredx.models.mixed_model
+
+.. autoclass:: MixedModel
+
+    
+
+    

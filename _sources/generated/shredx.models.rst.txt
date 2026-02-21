@@ -1,0 +1,19 @@
+shredx.models
+=============
+
+.. automodule:: shredx.models
+
+   
+
+
+
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   mixed_model

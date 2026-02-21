@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx.modules.rnn.GRUEncoder &#8212; SHRED-X Documentation</title>
+    <title>shredx.models.mixed_model &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.modules.rnn.GRUEncoder';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.models.mixed_model';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.modules.rnn.LSTMEncoder" href="shredx.modules.rnn.LSTMEncoder.html" />
-    <link rel="prev" title="shredx.modules.rnn" href="shredx.modules.rnn.html" />
+    <link rel="next" title="shredx.models.mixed_model.MixedModel" href="shredx.models.mixed_model.MixedModel.html" />
+    <link rel="prev" title="shredx.models" href="shredx.models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -273,14 +273,14 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.models.html">shredx.models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.models.mixed_model.html">shredx.models.mixed_model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.models.html">shredx.models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">shredx.models.mixed_model</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.models.mixed_model.MixedModel.html">shredx.models.mixed_model.MixedModel</a></li>
 </ul>
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.modules.html">shredx.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.cnn.html">shredx.modules.cnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.cnn.CNNDecoder.html">shredx.modules.cnn.CNNDecoder</a></li>
 </ul>
@@ -300,8 +300,8 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.positional_encoding.PositionalEncoding.html">shredx.modules.positional_encoding.PositionalEncoding</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.modules.rnn.GRUEncoder</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.modules.rnn.html">shredx.modules.rnn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.GRUEncoder.html">shredx.modules.rnn.GRUEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.LSTMEncoder.html">shredx.modules.rnn.LSTMEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOEGRUEncoder.html">shredx.modules.rnn.MOEGRUEncoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.modules.rnn.MOELSTMEncoder.html">shredx.modules.rnn.MOELSTMEncoder</a></li>
@@ -391,12 +391,9 @@
     <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
     
     
-    <li class="breadcrumb-item"><a href="shredx.modules.html" class="nav-link">shredx.modules</a></li>
+    <li class="breadcrumb-item"><a href="shredx.models.html" class="nav-link">shredx.models</a></li>
     
-    
-    <li class="breadcrumb-item"><a href="shredx.modules.rnn.html" class="nav-link">shredx.modules.rnn</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.modules.rnn.GRUEncoder</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.models.mixed_model</span></li>
   </ul>
 </nav>
 </div>
@@ -413,65 +410,17 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="shredx-modules-rnn-gruencoder">
-<h1>shredx.modules.rnn.GRUEncoder<a class="headerlink" href="#shredx-modules-rnn-gruencoder" title="Link to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="shredx.modules.rnn.GRUEncoder">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">shredx.modules.rnn.</span></span><span class="sig-name descname"><span class="pre">GRUEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shredx.modules.rnn.GRUEncoder" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>GRU encoder for sequence-to-sequence modeling.</p>
-<p>Wraps PyTorch’s <code class="docutils literal notranslate"><span class="pre">GRU</span></code> with dropout and output reshaping for
-compatibility with encoder–decoder architectures.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>input_size</strong><span class="classifier">int</span></dt><dd><p>Input feature dimension.</p>
-</dd>
-<dt><strong>hidden_size</strong><span class="classifier">int</span></dt><dd><p>Hidden state dimension.</p>
-</dd>
-<dt><strong>num_layers</strong><span class="classifier">int</span></dt><dd><p>Number of stacked GRU layers.</p>
-</dd>
-<dt><strong>dropout</strong><span class="classifier">float</span></dt><dd><p>Dropout probability applied to the outputs.</p>
-</dd>
-<dt><strong>device</strong><span class="classifier">str, optional</span></dt><dd><p>Device on which to place the module. Default is <code class="docutils literal notranslate"><span class="pre">&quot;cpu&quot;</span></code>.</p>
-</dd>
-<dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments passed for compatibility but ignored.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
+  <section id="module-shredx.models.mixed_model">
+<span id="shredx-models-mixed-model"></span><h1>shredx.models.mixed_model<a class="headerlink" href="#module-shredx.models.mixed_model" title="Link to this heading">#</a></h1>
+<p class="rubric">Classes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code>(x)</p></td>
-<td><p>Apply the GRU encoder to an input batch.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="shredx.models.mixed_model.MixedModel.html#shredx.models.mixed_model.MixedModel" title="shredx.models.mixed_model.MixedModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MixedModel</span></code></a>(encoder, decoder)</p></td>
+<td><p>A flexible encoder-decoder model supporting multiple encoder and decoder types.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p class="rubric">Notes</p>
-<p><strong>Class Methods:</strong></p>
-<p><strong>forward(x):</strong></p>
-<ul class="simple">
-<li><p>Applies the GRU encoder to an input batch.</p></li>
-<li><dl class="simple">
-<dt>Parameters:</dt><dd><ul>
-<li><p>x : <code class="docutils literal notranslate"><span class="pre">Float[torch.Tensor,</span> <span class="pre">&quot;batch</span> <span class="pre">sequence</span> <span class="pre">input_size&quot;]</span></code>. Input tensor.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Returns:</dt><dd><ul>
-<li><p>tuple. Tuple containing the final output tensor of shape
-<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">hidden_size)</span></code> and <code class="docutils literal notranslate"><span class="pre">None</span></code> for no auxiliary losses.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</dd></dl>
-
 </section>
 
 
@@ -485,20 +434,20 @@ compatibility with encoder–decoder architectures.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="shredx.modules.rnn.html"
+       href="shredx.models.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">shredx.modules.rnn</p>
+        <p class="prev-next-title">shredx.models</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.modules.rnn.LSTMEncoder.html"
+       href="shredx.models.mixed_model.MixedModel.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.modules.rnn.LSTMEncoder</p>
+        <p class="prev-next-title">shredx.models.mixed_model.MixedModel</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -514,22 +463,10 @@ compatibility with encoder–decoder architectures.</p>
 
 
   <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.modules.rnn.GRUEncoder"><code class="docutils literal notranslate"><span class="pre">GRUEncoder</span></code></a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.modules.rnn.GRUEncoder.rst.txt"
+      <li><a href="../_sources/generated/shredx.models.mixed_model.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
