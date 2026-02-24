@@ -67,6 +67,7 @@ class MultiHeadAttention(nn.Module):
         """Initialize ``MultiHeadAttention``."""
         factory_kwargs = {"device": device, "dtype": dtype}
         super().__init__()
+        self.device = device
         self.n_heads = n_heads
         self.dropout = dropout
         self.packed_proj = nn.Linear(E_q, E_total * 3, bias=bias, **factory_kwargs)
@@ -76,6 +77,7 @@ class MultiHeadAttention(nn.Module):
             raise ValueError("Embedding dim is not divisible by n_heads")
         self.E_head = E_total // n_heads
         self.bias = bias
+        self.to(self.device)
 
     def forward(
         self,
@@ -199,6 +201,8 @@ class MultiHeadSINDyAttention(nn.Module):
             ]
         )
 
+        self.to(self.device)
+
     def forward(
         self,
         query: Float[torch.Tensor, "N L_q E_qk"],
@@ -317,6 +321,7 @@ class TransformerEncoderLayer(nn.Module):
             bias=bias,
             **factory_kwargs,
         )
+        self.device = device
         self.linear1 = nn.Linear(d_model, dim_feedforward, bias=bias, **factory_kwargs)
         self.dropout = nn.Dropout(dropout)
         self.linear2 = nn.Linear(dim_feedforward, d_model, bias=bias, **factory_kwargs)
@@ -328,6 +333,8 @@ class TransformerEncoderLayer(nn.Module):
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
         self.activation = activation
+
+        self.to(self.device)
 
     def _sa_block(
         self, x: Float[torch.Tensor, "batch seq_len d_model"], is_causal: bool
@@ -401,6 +408,8 @@ class TransformerEncoderModule(nn.Module):
         self.layers = _get_clones(encoder_layer, num_layers)
         self.num_layers = num_layers
         self.norm = norm
+        self.device = device
+        self.to(self.device)
 
     def forward(
         self, src: Float[torch.Tensor, "batch seq_len d_model"], is_causal: bool = True
@@ -469,6 +478,7 @@ class TransformerEncoder(nn.Module):
         """Initialize ``TransformerEncoder``."""
         super().__init__()
 
+        self.device = device
         self.input_embedding = nn.Linear(d_model, hidden_size, bias=bias, device=device)
 
         encoder_layer = TransformerEncoderLayer(
@@ -499,6 +509,8 @@ class TransformerEncoder(nn.Module):
             dropout=dropout,
             device=device,
         )
+
+        self.to(self.device)
 
     def forward(
         self,
@@ -610,6 +622,8 @@ class SINDyLossTransformerEncoder(SINDyLossMixin, TransformerEncoder):
             device=device,
         )
 
+        self.to(self.device)
+
     def forward(  # pyrefly: ignore[bad-override]
         self,
         src: Float[torch.Tensor, "batch seq_len d_model"],
@@ -719,6 +733,8 @@ class SINDyAttentionTransformerEncoder(TransformerEncoder):
             device=device,
             dtype=None,
         )
+
+        self.to(self.device)
 
         self.n_heads = n_heads
 
@@ -909,6 +925,8 @@ class SINDyAttentionSINDyLossTransformerEncoder(SINDyLossMixin, SINDyAttentionTr
             dt=dt,
             device=device,
         )
+
+        self.to(self.device)
 
     def forward(  # pyrefly: ignore[bad-override]
         self,

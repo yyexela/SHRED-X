@@ -124,6 +124,8 @@ class SINDyLayer(nn.Module):
             sindy_coefficients = (random_tensor + random_tensor.T) / 2.0
             self.sindy_coefficients = nn.Parameter(sindy_coefficients)
 
+        self.to(self.device)
+
     def get_dense_sindy_coefficients(self) -> Float[torch.Tensor, "hidden_size hidden_size"]:
         """Return dense SINDy coefficient matrix."""
         if self.strict_symmetry:

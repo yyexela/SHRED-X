@@ -73,6 +73,8 @@ class GRUEncoder(nn.Module):
             batch_first=True,
         )
 
+        self.to(self.device)
+
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
@@ -147,6 +149,8 @@ class LSTMEncoder(nn.Module):
             num_layers=self.num_layers,
             batch_first=True,
         )
+
+        self.to(self.device)
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
@@ -249,6 +253,8 @@ class MOEGRUEncoder(nn.Module, MOESINDyLayerHelpersMixin):
                 for _ in range(self.n_experts)
             ]
         )
+
+        self.to(self.device)
 
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
@@ -363,6 +369,8 @@ class MOELSTMEncoder(nn.Module, MOESINDyLayerHelpersMixin):
             ]
         )
 
+        self.to(self.device)
+
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
@@ -445,6 +453,8 @@ class SINDyLossGRUEncoder(SINDyLossMixin, GRUEncoder):
             sindy_loss_threshold=sindy_loss_threshold,
         )
 
+        self.to(self.device)
+
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], dict[str, Float[torch.Tensor, ""]]]:
@@ -523,6 +533,8 @@ class SINDyLossLSTMEncoder(SINDyLossMixin, LSTMEncoder):
             dt=dt,
             sindy_loss_threshold=sindy_loss_threshold,
         )
+
+        self.to(self.device)
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
