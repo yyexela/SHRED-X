@@ -81,6 +81,8 @@ class CNNDecoder(nn.Module):
         model = model.to(device)
         self.model = model
 
+        self.to(self.device)
+
     def forward(
         self,
         x: Float[torch.Tensor, "batch forecast_length sequence_length hidden_dim"],

@@ -77,6 +77,8 @@ class MLPEncoder(nn.Module):
         model = model.to(device)
         self.model = model
 
+        self.to(self.device)
+
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch 1 1 hidden_size"], None]:
@@ -164,6 +166,8 @@ class MLPDecoder(nn.Module):
         model = nn.Sequential(*self.layers)
         model = model.to(device)
         self.model = model
+
+        self.to(self.device)
 
     def forward(
         self,
@@ -266,6 +270,8 @@ class MOEMLPEncoder(nn.Module, MOESINDyLayerHelpersMixin):
             ]
         )
 
+        self.to(self.device)
+
     def forward(
         self, x: Float[torch.Tensor, "batch sequence input_size"]
     ) -> tuple[Float[torch.Tensor, "batch forecast_length 1 hidden_size"], None]:
@@ -346,6 +352,8 @@ class SINDyLossMLPEncoder(SINDyLossMixin, MLPEncoder):
             dt=dt,
             sindy_loss_threshold=sindy_loss_threshold,
         )
+
+        self.to(self.device)
 
     def forward(  # pyrefly: ignore[bad-override]
         self, x: Float[torch.Tensor, "batch sequence input_size"]
