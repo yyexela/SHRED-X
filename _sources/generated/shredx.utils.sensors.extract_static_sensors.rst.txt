@@ -1,0 +1,11 @@
+
+
+shredx.utils.sensors.extract\_static\_sensors
+=============================================
+
+.. currentmodule:: shredx.utils.sensors
+
+
+
+.. autofunction:: shredx.utils.sensors.extract_static_sensors
+

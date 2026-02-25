@@ -1,0 +1,11 @@
+
+
+shredx.utils.sensors.generate\_static\_sensors\_from\_mask
+==========================================================
+
+.. currentmodule:: shredx.utils.sensors
+
+
+
+.. autofunction:: shredx.utils.sensors.generate_static_sensors_from_mask
+

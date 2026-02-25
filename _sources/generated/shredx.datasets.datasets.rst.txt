@@ -1,0 +1,18 @@
+shredx.datasets.datasets
+========================
+
+.. automodule:: shredx.datasets.datasets
+
+   
+
+
+
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      load_sst_data
+
+
+

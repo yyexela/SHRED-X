@@ -16,5 +16,7 @@ shredx.utils
    :toctree:
    :recursive:
 
+   plots
    pytorch_polynomial_features
    scaling
+   sensors

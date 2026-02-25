@@ -1,0 +1,11 @@
+
+
+shredx.utils.plots.plot\_sensor\_timeseries
+===========================================
+
+.. currentmodule:: shredx.utils.plots
+
+
+
+.. autofunction:: shredx.utils.plots.plot_sensor_timeseries
+

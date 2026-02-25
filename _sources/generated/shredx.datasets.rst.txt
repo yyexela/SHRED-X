@@ -17,3 +17,4 @@ shredx.datasets
    :recursive:
 
    dataloaders
+   datasets

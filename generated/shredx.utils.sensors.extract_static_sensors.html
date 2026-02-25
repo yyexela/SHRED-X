@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>shredx &#8212; SHRED-X Documentation</title>
+    <title>shredx.utils.sensors.extract_static_sensors &#8212; SHRED-X Documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/shredx.utils.sensors.extract_static_sensors';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="shredx.datasets" href="shredx.datasets.html" />
-    <link rel="prev" title="API" href="../api.html" />
+    <link rel="next" title="shredx.utils.sensors.generate_static_sensors_from_mask" href="shredx.utils.sensors.generate_static_sensors_from_mask.html" />
+    <link rel="prev" title="shredx.utils.sensors" href="shredx.utils.sensors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -265,7 +265,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="shredx.html">shredx</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="shredx.datasets.html">shredx.datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.datasets.dataloaders.html">shredx.datasets.dataloaders</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.datasets.dataloaders.TimeSeriesDataset.html">shredx.datasets.dataloaders.TimeSeriesDataset</a></li>
@@ -334,7 +334,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="shredx.utils.html">shredx.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.plots.html">shredx.utils.plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.plots.plot_sensor_timeseries.html">shredx.utils.plots.plot_sensor_timeseries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.plots.plot_timestep.html">shredx.utils.plots.plot_timestep</a></li>
@@ -349,8 +349,8 @@
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.scaling.min_max_scale.html">shredx.utils.scaling.min_max_scale</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="shredx.utils.sensors.html">shredx.utils.sensors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="shredx.utils.sensors.extract_static_sensors.html">shredx.utils.sensors.extract_static_sensors</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="shredx.utils.sensors.html">shredx.utils.sensors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shredx.utils.sensors.extract_static_sensors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="shredx.utils.sensors.generate_static_sensors_from_mask.html">shredx.utils.sensors.generate_static_sensors_from_mask</a></li>
 </ul>
 </details></li>
@@ -401,7 +401,16 @@
     
     <li class="breadcrumb-item"><a href="../api.html" class="nav-link">API</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx</span></li>
+    
+    <li class="breadcrumb-item"><a href="shredx.html" class="nav-link">shredx</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.utils.html" class="nav-link">shredx.utils</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="shredx.utils.sensors.html" class="nav-link">shredx.utils.sensors</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">shredx.utils.sensors.extract_static_sensors</span></li>
   </ul>
 </nav>
 </div>
@@ -418,26 +427,30 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-shredx">
-<span id="shredx"></span><h1>shredx<a class="headerlink" href="#module-shredx" title="Link to this heading">#</a></h1>
-<p class="rubric">Modules</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.datasets.html#module-shredx.datasets" title="shredx.datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="shredx.models.html#module-shredx.models" title="shredx.models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">models</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="shredx.modules.html#module-shredx.modules" title="shredx.modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modules</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="shredx.utils.html#module-shredx.utils" title="shredx.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
+  <section id="shredx-utils-sensors-extract-static-sensors">
+<h1>shredx.utils.sensors.extract_static_sensors<a class="headerlink" href="#shredx-utils-sensors-extract-static-sensors" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="shredx.utils.sensors.extract_static_sensors">
+<span class="sig-prename descclassname"><span class="pre">shredx.utils.sensors.</span></span><span class="sig-name descname"><span class="pre">extract_static_sensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Float</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'time</span> <span class="pre">rows</span> <span class="pre">cols</span> <span class="pre">dim'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Float</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'time</span> <span class="pre">n_sensors</span> <span class="pre">dim'</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#shredx.utils.sensors.extract_static_sensors" title="Link to this definition">#</a></dt>
+<dd><p>Extract sensor readings from a tensor at the given locations for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tensor</strong><span class="classifier">Float[torch.Tensor, “time rows cols dim”]</span></dt><dd><p>The tensor to extract sensors from (time, rows, cols, channels).</p>
+</dd>
+<dt><strong>sensor_locations</strong><span class="classifier">list of tuples of (row, col)</span></dt><dd><p>The locations of the sensors (row, col coordinates).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Float[torch.Tensor, “time n_sensors dim”]</dt><dd><p>The extracted sensor values at each time step.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -451,20 +464,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../api.html"
+       href="shredx.utils.sensors.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">API</p>
+        <p class="prev-next-title">shredx.utils.sensors</p>
       </div>
     </a>
     <a class="right-next"
-       href="shredx.datasets.html"
+       href="shredx.utils.sensors.generate_static_sensors_from_mask.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">shredx.datasets</p>
+        <p class="prev-next-title">shredx.utils.sensors.generate_static_sensors_from_mask</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -480,10 +493,22 @@
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shredx.utils.sensors.extract_static_sensors"><code class="docutils literal notranslate"><span class="pre">extract_static_sensors()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/shredx.rst.txt"
+      <li><a href="../_sources/generated/shredx.utils.sensors.extract_static_sensors.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

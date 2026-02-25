@@ -1,0 +1,19 @@
+shredx.utils.sensors
+====================
+
+.. automodule:: shredx.utils.sensors
+
+   
+
+
+
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      extract_static_sensors
+      generate_static_sensors_from_mask
+
+
+
