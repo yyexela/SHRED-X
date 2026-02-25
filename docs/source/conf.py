@@ -22,6 +22,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "nbsphinx",
+    "sphinx_design",
 ]
 
 nbsphinx_execute = "never"
@@ -40,6 +41,15 @@ autodoc_default_options = {
 
 html_title = "SHRED-X Documentation"
 html_theme = "pydata_sphinx_theme"
+html_show_sourcelink = False
+
+html_theme_options = {
+    "logo": {
+        "image_light": "_static/images/light_logo.svg",
+        "image_dark": "_static/images/dark_logo.svg",
+    },
+    "github_url": "https://github.com/CTF-for-Science/ctf4science",
+}
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
