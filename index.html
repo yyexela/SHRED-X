@@ -31,6 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -41,11 +42,12 @@
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Guide" href="user_guide.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -109,8 +111,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="_static/light_logo.svg" class="logo__image only-light" alt="SHRED-X Documentation - Home"/>
+    <img src="_static/dark_logo.svg" class="logo__image only-dark pst-js-only" alt="SHRED-X Documentation - Home"/>
   
-    <p class="title logo__title">SHRED-X Documentation</p>
   
 </a></div>
     
@@ -125,8 +133,15 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide.html">
-    User Guide
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing.html">
+    Contributing
   </a>
 </li>
 
@@ -139,15 +154,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="contributing.html">
-    Contributing to SHRED-X
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/shred.html">
-    SHRED Implementation
+  <a class="nav-link nav-internal" href="citations.html">
+    Citations
   </a>
 </li>
 
@@ -185,6 +193,22 @@
   <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
 </button></div>
       
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/yyexela/SHRED-X" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
     </div>
     
   </div>
@@ -200,10 +224,6 @@
     </div>
   
 
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
   
 </div>
 
@@ -234,8 +254,15 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="user_guide.html">
-    User Guide
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing.html">
+    Contributing
   </a>
 </li>
 
@@ -248,15 +275,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="contributing.html">
-    Contributing to SHRED-X
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="notebooks/shred.html">
-    SHRED Implementation
+  <a class="nav-link nav-internal" href="citations.html">
+    Citations
   </a>
 </li>
 
@@ -284,6 +304,22 @@
   <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
   <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
 </button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/yyexela/SHRED-X" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
         
       </div>
     
@@ -319,16 +355,66 @@
                   
   <section id="shred-x-documentation">
 <h1>SHRED-X Documentation<a class="headerlink" href="#shred-x-documentation" title="Link to this heading">#</a></h1>
-<p>SHRED-X is a PyTorch implementation of the SHRED model. Currently, it is in development and not yet ready for use, but you can view the implemented API below.</p>
+<p>This package houses SHRED models for research and industrial purposes.</p>
 <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to SHRED-X</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/shred.html">SHRED Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-</ul>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-2 sd-g-xs-2 sd-g-sm-3 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text">Getting started</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">New to SHRED? Check out the <em>Getting Started</em> Guide. It contains an
+introduction to using the package and how to get started.</p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-d-grid"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-stretched-link reference internal" href="getting_started.html"><span class="doc">To the Getting Started guide</span></a></span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text">Tutorials</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">The <em>Tutorials</em> are a collection of notebooks that demonstrate how to use the package.</p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-d-grid"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-stretched-link reference internal" href="tutorials.html"><span class="doc">To the Tutorials</span></a></span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text">API</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">The <em>API</em> is the core components of the framework. It is the interface that allows the user to use the package.</p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-d-grid"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-stretched-link reference internal" href="api.html"><span class="doc">To the API</span></a></span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text">Contributing</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Want to add to the codebase? The <em>Contributing</em> guide will guide you through the
+process of adding to the package.</p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-d-grid"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-stretched-link reference internal" href="contributing.html"><span class="doc">To the Contributing guide</span></a></span></p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 
@@ -343,11 +429,11 @@
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="user_guide.html"
+       href="getting_started.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">User Guide</p>
+        <p class="prev-next-title">Getting Started</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -357,21 +443,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
               
             
           </div>

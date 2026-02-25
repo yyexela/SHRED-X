@@ -1,47 +1,96 @@
-Contributing to SHRED-X
-=======================
+Contributing
+============
 
-Environment
-------------
+Thank you for your interest in contributing to SHRED-X!  This guide
+covers the development environment, tooling, and workflow.
 
-The environment can be created by running::
+
+Development Setup
+-----------------
+
+.. code-block:: bash
+
+   git clone https://github.com/yyexela/SHRED-X.git
+   cd SHRED-X
 
    pyenv install 3.13.7
    pyenv local 3.13.7
    python -m venv ~/.virtualenvs/shredx
    source ~/.virtualenvs/shredx/bin/activate
-   pip install -e .[dev]
+   pip install -e ".[dev]"
 
-Nox Taskrunner
---------------
+Install the pre-commit hooks so that every commit is automatically
+linted, formatted, and type-checked:
 
-We use `Nox <https://nox.thea.codes/en/stable/index.html>`__ to automate all tasks in our package. Specifically, running ``nox`` runs all tests, lints and formats the code, performs typechecking, and builds the documentation. It is also used for the continuous integration pipeline to do all the aforementioned in Github Actions.
+.. code-block:: bash
 
-To run a specific Nox task, run ``nox --list`` to see available tasks and then ``nox --no-venv --no-install -s <task>`` to run the task.
+   pre-commit install
+   pre-commit run --all-files   # verify everything passes
 
-Pre-commit
-----------
 
-We use `pre-commit <https://pre-commit.com/>`__ to verify all code is linted, formatted, and type-checked before committed. This ensures a smoother code development process. Use ``pre-commit install`` to install the appropriate hooks and verify it runs with ``pre-commit run --all-files``.
+Nox Task Runner
+---------------
 
-Linting and Formatting
-----------------------
+`Nox <https://nox.thea.codes/en/stable/index.html>`__ orchestrates all
+CI tasks.  Run ``nox --list`` to see available sessions, or invoke a
+specific one. View ``noxfile.py`` for more details.
 
-Linting ensures that the code logic makes sense and nothing is being called in a way that would surely break. For this, we use `Ruff <https://docs.astral.sh/ruff/>`__. We also use Ruff for code formatting, ensuring a standard format across all code. There is a Ruff VSCode extension that can be used to help with linting and formatting.
+.. code-block:: bash
 
-Type checking
+   nox --no-venv --no-install -s <session>
+
+
+Linting & Formatting
+---------------------
+
+We use `Ruff <https://docs.astral.sh/ruff/>`__ for both linting and
+formatting.  The `Ruff VS Code extension
+<https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff>`__
+provides real-time feedback in the editor.
+
+
+Type Checking
 -------------
 
-In this repository, we use `Pyrefly <https://pyrefly.org/>`__ to check all functions are called with their specified types. We also use `jaxtyping <https://docs.kidger.site/jaxtyping/api/array/>`__ to allow for clear function typing for PyTorch array dimensions. There is a Pyrefly VSCode extension that can be used to help with type checking.
+`Pyrefly <https://pyrefly.org/>`__ verifies that all function calls
+respect their declared types.  Tensor dimension annotations use
+`jaxtyping <https://docs.kidger.site/jaxtyping/api/array/>`__ for
+readable shape documentation.
 
-Building/Serving Documentation
-------------------------------
 
-We use `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`__ to build our documentation. Make sure that the ``sphinx`` package is installed in your python environment. The source files are located in ``doc/``. To build the documentation, run ``nox --no-venv --no-install -s build_docs``.
+Building Documentation
+----------------------
 
-To preview documentation files, open ``docs/build/html/index.html`` locally in your browser. If you're developing on a server, first run ``python -m http.server 8000`` in ``docs/build/html`` and then on your local computer run ``ssh -L 8080:localhost:8000 <server_address>``. This will turn the server into an HTTP server and opening ``localhost:8080`` in a browser will show the generated documentation.
+We use Sphinx to build the documentation. Learn more at `sphinx-doc.org <https://www.sphinx-doc.org/en/master/index.html>`__.
 
-Adding to Documentation
------------------------
+.. code-block:: bash
 
-We use `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`__ as our documentation generator. To add to the documentation, add to the ``source/`` directory. All files in this directory will be included in the documentation. Please read the `Sphinx documentation <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`__ for more information on how to write documentation.
+   nox --no-venv --no-install -s build_docs
+
+The generated site lands in ``docs/build/html/``.  Open
+``docs/build/html/index.html`` in a browser to preview.
+
+If you are developing on a remote server:
+
+.. code-block:: bash
+
+   # On the server
+   python -m http.server 8000 -d docs/build/html
+
+   # On your local machine
+   ssh -L 8080:localhost:8000 <server>
+
+Then open ``http://localhost:8080`` in your browser.
+
+
+Adding Documentation
+--------------------
+
+Source files live in ``docs/source/``.  Add or edit ``.rst`` files there
+and ensure they are referenced from a ``toctree``.  API docs are
+auto-generated from docstrings via ``autosummary`` -- just write good
+docstrings and they will appear automatically.
+
+Please follow `numpydoc
+<https://numpydoc.readthedocs.io/en/latest/format.html>`__ style for all
+docstrings.
