@@ -10,8 +10,7 @@ on:
       - "!main"
       - "!gh-pages"
     paths: # Only generate documentation for changes to the SHRED-X package or documentation itself
-      - 'shredx/**'
-      - 'docs/**'
+      - '**'
   workflow_dispatch:
 
 permissions:

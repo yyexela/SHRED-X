@@ -10,8 +10,7 @@ on:
       - "!main"
       - "!gh-pages"
     paths: # Only run tests for changes to the SHRED-X package
-      - 'shredx/**'
-      - 'test/**'
+      - '**'
   workflow_dispatch:
 
 permissions:
