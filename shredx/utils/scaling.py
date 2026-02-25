@@ -10,7 +10,7 @@ def min_max_scale(
     scaler: tuple[float, float] | None = None,
 ) -> tuple[Float[torch.Tensor, "... dim"], tuple[float, float]]:
     """
-    Scale a tensor to a given feature range using min-max normalization.
+    Scale a tensor to a given feature range using linear min-max normalization.
 
     The input tensor must contain at least two elements. By default, the
     tensor is scaled to the `(0, 1)` interval. Optionally, a precomputed

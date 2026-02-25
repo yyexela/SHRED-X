@@ -21,7 +21,10 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "nbsphinx",
 ]
+
+nbsphinx_execute = "never"
 
 templates_path = ["_templates"]
 exclude_patterns = []

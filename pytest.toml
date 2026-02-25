@@ -7,3 +7,5 @@ testpaths = [
 filterwarnings = [
     "error",
 ]
+[pytest_env]
+SMOKE = "True"
