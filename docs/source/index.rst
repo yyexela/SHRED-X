@@ -8,5 +8,7 @@ SHRED-X is a PyTorch implementation of the SHRED model. Currently, it is in deve
    :caption: Contents:
 
    user_guide
+   tutorials
    contributing
+   notebooks/shred
    api

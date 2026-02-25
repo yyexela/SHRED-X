@@ -10,6 +10,12 @@ def test(session):
 
 
 @nox.session
+def test_notebooks(session):
+    session.install(".[dev]")
+    session.run("pytest", "notebooks", "-v", "-x", "--nbval-lax")
+
+
+@nox.session
 def lint(session):
     session.install("ruff")
     session.run("ruff", "check")
