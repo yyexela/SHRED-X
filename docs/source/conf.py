@@ -48,7 +48,7 @@ html_theme_options = {
         "image_light": "_static/images/light_logo.svg",
         "image_dark": "_static/images/dark_logo.svg",
     },
-    "github_url": "https://github.com/CTF-for-Science/ctf4science",
+    "github_url": "https://github.com/yyexela/SHRED-X",
 }
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
